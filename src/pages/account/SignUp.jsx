@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
 import { Logo } from "../../components/logo/Logo";
 import { toast } from "react-toastify";
+import { signUpUser } from "../../store/authStore/action";
 
 const SignUp = () => {
   const [passVisible, setPassVisible] = useState("password");
@@ -13,16 +15,31 @@ const SignUp = () => {
     phoneNumber: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const clickSubmit = () => {
-    if (userInfo.username && userInfo.password.length > 5 && userInfo.email && userInfo.phoneNumber) {
-      // signUpUser(userInfo);
-      toast.success("Sign up successful! Now please login to access your account.");
-      navigate("/login");
-    } else if (userInfo.username && userInfo.email && userInfo.phoneNumber && userInfo.password.length <= 5) {
+  const clickSubmit = async () => {
+    if (
+      userInfo.username &&
+      userInfo.password.length > 5 &&
+      userInfo.email &&
+      userInfo.phoneNumber
+    ) {
+      dispatch(
+        signUpUser({
+          ...userInfo,
+          profilePicture: "https://i.imgur.com/BD9PiJ6.png",
+        }, setUserInfo, navigate)
+      );
+      
+    } else if (
+      userInfo.username &&
+      userInfo.email &&
+      userInfo.phoneNumber &&
+      userInfo.password.length <= 5
+    ) {
       toast.error("Password length should be greater than 5.!");
     } else {
-      toast.error( "Please fill in all fields with valid details.!");
+      toast.error("Please fill in all fields with valid details.!");
     }
   };
   return (
@@ -42,8 +59,9 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="Username"
-                id="last"
-                name="last"
+                id="username"
+                name="username"
+                value={userInfo.username}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
                   setUserInfo((u) => ({ ...u, username: e.target.value }))
@@ -57,6 +75,7 @@ const SignUp = () => {
                 placeholder="Email"
                 id="email"
                 name="email"
+                value={userInfo.email}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
                   setUserInfo((u) => ({ ...u, email: e.target.value }))
@@ -69,8 +88,9 @@ const SignUp = () => {
               <input
                 type="number"
                 placeholder="Phone number"
-                id="last"
-                name="last"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={userInfo.phoneNumber}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
                   setUserInfo((u) => ({ ...u, phoneNumber: e.target.value }))
@@ -85,6 +105,7 @@ const SignUp = () => {
                 placeholder="Password"
                 id="pwd"
                 name="pwd"
+                value={userInfo.password}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
                   setUserInfo((u) => ({ ...u, password: e.target.value }))

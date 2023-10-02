@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
 import { Logo } from "../../components/logo/Logo";
 import { toast } from "react-toastify";
+import { loginUser } from "../../store/authStore/action";
 
 const Login = () => {
   const [passVisible, setPassVisible] = useState("password");
-  const [userInfo, setUserInfo] = useState({ username: "", password: "" });
-
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginHandler = () => {
-    if (userDetail.username && userDetail.password) {
-      // loginUser(userDetail);
+    if (userInfo.email && userInfo.password) {
+      dispatch(loginUser(userInfo, navigate));
      
     } else {
       toast.error("Please fill in all fields with valid details.!");
@@ -34,12 +37,13 @@ const Login = () => {
           <div className="w-full md700:w-1/2 py-1.5 px-5 mt-5 md700:text-lg font-semibold border-2 rounded-lg border-lightGray m-auto">
               <input
                 type="text"
-                placeholder="Username"
-                id="last"
-                name="last"
+                placeholder="Email"
+                id="email"
+                name="email"
+                value={userInfo.email}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
-                  setUserInfo((u) => ({ ...u, username: e.target.value }))
+                  setUserInfo((u) => ({ ...u, email: e.target.value }))
                 }
                 required
               />
@@ -51,6 +55,7 @@ const Login = () => {
                 placeholder="Password"
                 id="pwd"
                 name="pwd"
+                value={userInfo.password}
                 className="w-full outline-0 text-white bg-transparent"
                 onChange={(e) =>
                   setUserInfo((u) => ({ ...u, password: e.target.value }))
