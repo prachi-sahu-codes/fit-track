@@ -1,35 +1,36 @@
 import { signupService, loginService } from "../../api/services/authServices";
 import { toast } from "react-toastify";
 
-export const signUpUser = (input, setUserInfo, navigate) => async (dispatch) => {
-  try {
-    const res = await signupService(input);
-    if (res.status === 201) {
-      const { token, user } = res.data;
-      dispatch({
-        type: "SIGNUP",
-        payload: { token, user },
-      });
-      setUserInfo(() => ({
-        username: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-      }));
-      navigate("/login")
-      toast.success(
-        "Sign up successful! Now please login to access your account."
+export const signUpUser =
+  (input, setUserInfo, navigate) => async (dispatch) => {
+    try {
+      const res = await signupService(input);
+      if (res.status === 201) {
+        const { token, user } = res.data;
+        dispatch({
+          type: "SIGNUP",
+          payload: { token, user },
+        });
+        setUserInfo(() => ({
+          username: "",
+          email: "",
+          password: "",
+          phoneNumber: "",
+        }));
+        navigate("/login");
+        toast.success(
+          "Sign up successful! Now please login to access your account."
+        );
+      }
+    } catch (e) {
+      console.log("Error:", e);
+      toast.error(
+        e?.response?.data?.error
+          ? e?.response?.data?.error
+          : "Something is wrong. Please try again!"
       );
     }
-  } catch (e) {
-    console.log("Error:", e);
-    toast.error(
-      e?.response?.data?.error
-        ? e?.response?.data?.error
-        : "Something is wrong. Please try again!"
-    );
-  }
-};
+  };
 
 export const loginUser = (input, navigate) => async (dispatch) => {
   try {
@@ -55,12 +56,12 @@ export const loginUser = (input, navigate) => async (dispatch) => {
   }
 };
 
-export const logoutHandler = (dispatch) => {
+export const logoutHandler = (navigate) => async (dispatch) => {
   localStorage.removeItem("authItems");
   dispatch({
     type: "LOGOUT",
     payload: { token: null, user: null },
   });
-  //   navigate("./");
+  navigate("./");
   toast.success("Logout successful. We hope to see you again soon!");
 };
