@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <ToastContainer
         position="top-right"
-        autoClose={1500}
+        autoClose={2000}
         limit={4}
         hideProgressBar={false}
         newestOnTop={false}
@@ -21,6 +21,7 @@ const App = () => {
         pauseOnHover
         theme="light"
       />
+
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
