@@ -5,7 +5,6 @@ import { FiGithub } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 
 const NavBar = ({ title }) => {
-  console.log(title);
   function formatDate(date) {
     const options = {
       weekday: "long",
@@ -17,7 +16,7 @@ const NavBar = ({ title }) => {
   }
   const today = formatDate(new Date());
   const user = useSelector((state) => state?.auth?.loggedUser);
-  console.log(user);
+
   return (
     <div className=" flex justify-between p-2">
       <div>

@@ -7,7 +7,6 @@ import Footer from "../layout/footer/Footer";
 export const RequiresAuth = ({ children }) => {
   const location = useLocation();
   const token = store.getState()?.auth?.token;
-  console.log(token);
   return token ? (
     <div>
       <div className="flex">
