@@ -1,6 +1,6 @@
 const InitialState = {
   exercises: [],
-  foods: [],
+  diets: [],
   goals: [],
 };
 

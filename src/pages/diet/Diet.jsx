@@ -20,7 +20,7 @@ const Diet = () => {
   });
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const foodData = useSelector((state) => state.activity.foodDietrcises);
+  const foodData = useSelector((state) => state.activity.diets);
   const user = useSelector((state) => state.auth.loggedUser);
   // useEffect(() => {
   //   dispatch(getAllDiets(user._id));
