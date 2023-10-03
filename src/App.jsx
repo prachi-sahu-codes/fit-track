@@ -9,7 +9,7 @@ import "./App.css";
 
 const App = () => {
   return (
-    <div>
+    <div className="w-full min-h-screen bg-bgWhole">
       <ToastContainer
         position="top-right"
         autoClose={2000}

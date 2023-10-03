@@ -19,6 +19,7 @@ export default {
         green:"#40CC7C",
         red:"#FF555D",
         black: "#151515",
+        bgWhole:"#171430",
         blackLightBg: "#222",
         bgInput: "#f2ebec",
         gray: "#818181",
