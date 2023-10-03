@@ -7,19 +7,23 @@ export default {
       md700: "700px",
     },
     extend: {
-      height: {},
+      height: {
+        "calc-sideBar":"calc(100vh - 2rem)"
+      },
       backgroundImage: {
         "hero-pattern": "url('./assets/hero-acc.jpg')",
       },
       colors: {
-        primary: "#7265E3",
-        primaryDark: "#665bce",
+        primary: "#5033c0",
+        primaryDark: "#4b31b3",
+        iconPurple:"#665bce",
         orange:"#FF934E",
-        blue:"#1EC2E5",
+        blue:"#4180fc",
         green:"#40CC7C",
         red:"#FF555D",
         black: "#151515",
         bgWhole:"#171430",
+        bgBox:"#24204b",
         blackLightBg: "#222",
         bgInput: "#f2ebec",
         gray: "#818181",
@@ -30,7 +34,9 @@ export default {
         shadowDark: "#080707",
       },
 
-      spacing: {},
+      spacing: {
+        "calc-mainBody": "calc(100% - 9rem)",
+      },
     },
   },
   plugins: [],

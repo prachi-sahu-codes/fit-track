@@ -4,12 +4,20 @@ import { toast } from "react-toastify";
 export const signUpUser =
   (input, setUserInfo, navigate) => async (dispatch) => {
     try {
+      dispatch({
+        type: "LOADING",
+        payload: true,
+      });
       const res = await signupService(input);
       if (res.status === 201) {
         const { token, user } = res.data;
         dispatch({
           type: "SIGNUP",
           payload: { token, user },
+        });
+        dispatch({
+          type: "LOADING",
+          payload: false,
         });
         setUserInfo(() => ({
           username: "",
@@ -23,6 +31,10 @@ export const signUpUser =
         );
       }
     } catch (e) {
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
       console.log("Error:", e);
       toast.error(
         e?.response?.data?.error
@@ -34,6 +46,10 @@ export const signUpUser =
 
 export const loginUser = (input, navigate) => async (dispatch) => {
   try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
     const res = await loginService(input);
     if (res.status === 201) {
       const { token, user } = res.data;
@@ -42,11 +58,19 @@ export const loginUser = (input, navigate) => async (dispatch) => {
         type: "LOGIN",
         payload: { token, user },
       });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
       navigate("/dashboard");
       console.log(res);
       toast.success(`Greetings, ${user.username} ! Enjoy your time with us!`);
     }
   } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     console.log("Error:", e);
     toast.error(
       e?.response?.data?.error
@@ -58,10 +82,12 @@ export const loginUser = (input, navigate) => async (dispatch) => {
 
 export const logoutHandler = (navigate) => async (dispatch) => {
   localStorage.removeItem("authItems");
+
   dispatch({
     type: "LOGOUT",
     payload: { token: null, user: null },
   });
+
   navigate("./");
   toast.success("Logout successful. We hope to see you again soon!");
 };
