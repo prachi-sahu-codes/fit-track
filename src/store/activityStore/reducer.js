@@ -20,10 +20,28 @@ export const activityReducer = (state = InitialState, action) => {
       const updateExercise = state.exercises.filter(
         (exe) => exe?._id !== action.payload
       );
-      console.log(updateExercise);
       return {
         ...state,
         exercises: updateExercise,
+      };
+      case "GET_ALL_DIET":
+      return {
+        ...state,
+        diets: action.payload,
+      };
+    case "CREATE_DIET":
+      return {
+        ...state,
+        diets: [...state.diets, action.payload],
+      };
+    case "DELETE_DIET":
+      const updateDiets = state.diets.filter(
+        (diet) => diet?._id !== action.payload
+      );
+      console.log(updateDiets);
+      return {
+        ...state,
+        diets: updateDiets,
       };
     default:
       return state;

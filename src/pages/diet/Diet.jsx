@@ -22,12 +22,12 @@ const Diet = () => {
   const dispatch = useDispatch();
   const foodData = useSelector((state) => state.activity.diets);
   const user = useSelector((state) => state.auth.loggedUser);
-  // useEffect(() => {
-  //   dispatch(getAllDiets(user._id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllDiets(user._id));
+  }, []);
 
   const submitHandler = () => {
-    if (data.name && data.duration && data.foodDietrciseType) {
+    if (data.name && data.calories) {
       dispatch(createDiet({ ...data, userId: user._id }, setData));
       setShowModal(false);
     } else {
@@ -57,15 +57,27 @@ const Diet = () => {
               <li className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
                 <h2 className="text-blue font-semibold">{foodDiet.name}</h2>
                 <p className="my-2 text-sm">
-                  Duration:{" "}
+                  Calories:{" "}
                   <span className="text-white text-lg pl-2">
-                    {foodDiet.duration} minutes
+                    {foodDiet.calories} calories
                   </span>
                 </p>
                 <p className="text-sm">
-                  Calories Burned:{" "}
+                  Proteins:{" "}
                   <span className="text-white text-lg pl-2">
-                    {foodDiet.caloriesBurned} calories
+                    {foodDiet.protein} grams
+                  </span>
+                </p>
+                <p className="my-2 text-sm">
+                  Carbohydrates:{" "}
+                  <span className="text-white text-lg pl-2">
+                    {foodDiet.carbohydrates} grams
+                  </span>
+                </p>
+                <p className="text-sm">
+                  Fats:{" "}
+                  <span className="text-white text-lg pl-2">
+                    {foodDiet.fat} grams
                   </span>
                 </p>
                 <button
@@ -80,7 +92,7 @@ const Diet = () => {
         </div>
       ) : (
         <p className="text-xl text-lightGray text-center m-8">
-          No Diet added yet!!
+          No Diets added yet!!
         </p>
       )}
 

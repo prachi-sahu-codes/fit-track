@@ -33,12 +33,12 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
               />
             </div>
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="calories">Calories in grams:</label>
+              <label htmlFor="calories">Calories:</label>
               <input
                 type="number"
-                placeholder="Calories in grams"
+                placeholder="Calories"
                 id="calories"
-                name="Calories in grams"
+                name="Calories"
                 value={data?.calories}
                 className="w-full outline-0 bg-transparent"
                 onChange={(e) =>
