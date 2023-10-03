@@ -73,8 +73,8 @@ const SideBar = () => {
         onClick={() => dispatch(logoutHandler(navigate))}
         className="h-14 flex flex-col items-center"
       >
-        <LuLogOut className="stroke-red " />
-        <p className="text-xs text-red pt-1">Logout</p>
+        <LuLogOut className="stroke-red cursor-pointer" />
+        <p className="text-xs text-red pt-1 cursor-pointer">Logout</p>
       </div>
     </div>
   );
