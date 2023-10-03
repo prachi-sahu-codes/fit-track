@@ -24,6 +24,7 @@ export default {
         black: "#151515",
         bgWhole:"#171430",
         bgBox:"#24204b",
+        activeIcon:"#332d6c",
         blackLightBg: "#222",
         bgInput: "#f2ebec",
         gray: "#818181",
