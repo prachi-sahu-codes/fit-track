@@ -79,7 +79,8 @@ export const activityReducer = (state = InitialState, action) => {
       return { ...state, totalCaloriesConsumed: caloriesConsumed };
     case "TOTAL_GOAL_CALORIES":
       const goalCalories = state.goals.reduce(
-        (acc, curr) => (acc += curr.targetCalories),
+        (acc, curr) =>
+          curr.status === "In Progress" ? (acc += curr.targetCalories) : acc,
         0
       );
       return { ...state, totalCaloriesGoals: goalCalories };
