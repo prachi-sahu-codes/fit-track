@@ -20,7 +20,7 @@ const Dashboard = () => {
   return (
     <div className="w-calc-mainBody p-1">
       <NavBar title="Dashboard" />
-      <div className="flex gap-5">
+      <div className="flex mt-7 gap-5">
         <div className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
           <h2 className="text-blue">Total Calories Burned</h2>
           <p className="flex items-center gap-2 text-white text-xl my-4">
