@@ -118,7 +118,6 @@ export const getAllDiets = (userId) => async (dispatch) => {
     const res = await getAllDietsService(userId);
     if (res.status === 201) {
       const { data } = res.data;
-      console.log(data);
       dispatch({
         type: "GET_ALL_DIET",
         payload: data,
@@ -151,7 +150,6 @@ export const createDiet = (input, setData) => async (dispatch) => {
     const res = await createDietService(input);
     if (res.status === 201) {
       const { data } = res.data;
-      console.log(data);
       dispatch({
         type: "CREATE_DIET",
         payload: data,
@@ -224,7 +222,6 @@ export const getAllGoals = (userId) => async (dispatch) => {
     const res = await getAllGoalsService(userId);
     if (res.status === 201) {
       const { data } = res.data;
-      console.log(data);
       dispatch({
         type: "GET_ALL_GOALS",
         payload: data,
@@ -257,7 +254,6 @@ export const createGoal = (input, setData) => async (dispatch) => {
     const res = await createGoalService(input);
     if (res.status === 201) {
       const { data } = res.data;
-      console.log(data);
       dispatch({
         type: "CREATE_GOAL",
         payload: data,
@@ -319,4 +315,20 @@ export const deleteGoal = (goalId) => async (dispatch) => {
         : "Something is wrong. Please try again!"
     );
   }
+};
+
+export const calcTotalCaloriesBurned = (userId) => async (dispatch) => {
+  await dispatch(getAllExercises(userId));
+  dispatch({ type: "TOTAL_CALORIES_BURNED" });
+};
+
+export const calcTotalCaloriesConsumed = (userId) => async (dispatch) => {
+  await dispatch(getAllDiets(userId));
+  dispatch({ type: "TOTAL_CALORIES_CONSUMED" });
+};
+
+export const calcGoalCalories = (userId) => async (dispatch) => {
+  await dispatch(getAllGoals(userId));
+  dispatch({ type: "TOTAL_GOAL_CALORIES" });
+  dispatch({ type: "TOTAL_GOAL_CALORIES_REMAINING" });
 };

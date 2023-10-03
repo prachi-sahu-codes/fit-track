@@ -2,6 +2,10 @@ const InitialState = {
   exercises: [],
   diets: [],
   goals: [],
+  totalCaloriesBurned: 0,
+  totalCaloriesConsumed: 0,
+  totalCaloriesGoals: 0,
+  totalCaloriesRemaining: 0,
 };
 
 export const activityReducer = (state = InitialState, action) => {
@@ -24,7 +28,7 @@ export const activityReducer = (state = InitialState, action) => {
         ...state,
         exercises: updateExercise,
       };
-      case "GET_ALL_DIET":
+    case "GET_ALL_DIET":
       return {
         ...state,
         diets: action.payload,
@@ -38,12 +42,11 @@ export const activityReducer = (state = InitialState, action) => {
       const updateDiets = state.diets.filter(
         (diet) => diet?._id !== action.payload
       );
-      console.log(updateDiets);
       return {
         ...state,
         diets: updateDiets,
       };
-      case "GET_ALL_GOALS":
+    case "GET_ALL_GOALS":
       return {
         ...state,
         goals: action.payload,
@@ -57,11 +60,39 @@ export const activityReducer = (state = InitialState, action) => {
       const updateGoal = state.diets.filter(
         (diet) => diet?._id !== action.payload
       );
-      console.log(updateGoal);
       return {
         ...state,
         goals: updateGoal,
       };
+    case "TOTAL_CALORIES_BURNED":
+      const caloriesBurned = state.exercises.reduce(
+        (acc, curr) => (acc += curr.caloriesBurned),
+        0
+      );
+
+      return { ...state, totalCaloriesBurned: caloriesBurned };
+    case "TOTAL_CALORIES_CONSUMED":
+      const caloriesConsumed = state.diets.reduce(
+        (acc, curr) => (acc += curr.calories),
+        0
+      );
+      return { ...state, totalCaloriesConsumed: caloriesConsumed };
+    case "TOTAL_GOAL_CALORIES":
+      const goalCalories = state.goals.reduce(
+        (acc, curr) => (acc += curr.targetCalories),
+        0
+      );
+      return { ...state, totalCaloriesGoals: goalCalories };
+    case "TOTAL_GOAL_CALORIES_REMAINING":
+      const caloriesremaining =
+        state.totalCaloriesGoals -
+        state.totalCaloriesBurned -
+        state.totalCaloriesConsumed;
+      if (caloriesremaining > 0) {
+        return { ...state, totalCaloriesRemaining: caloriesremaining };
+      } else {
+        return { ...state, totalCaloriesRemaining: 0 };
+      }
     default:
       return state;
   }
