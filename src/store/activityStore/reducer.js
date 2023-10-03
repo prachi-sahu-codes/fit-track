@@ -43,6 +43,25 @@ export const activityReducer = (state = InitialState, action) => {
         ...state,
         diets: updateDiets,
       };
+      case "GET_ALL_GOALS":
+      return {
+        ...state,
+        goals: action.payload,
+      };
+    case "CREATE_GOAL":
+      return {
+        ...state,
+        goals: [...state.goals, action.payload],
+      };
+    case "DELETE_GOAL":
+      const updateGoal = state.diets.filter(
+        (diet) => diet?._id !== action.payload
+      );
+      console.log(updateGoal);
+      return {
+        ...state,
+        goals: updateGoal,
+      };
     default:
       return state;
   }

@@ -109,7 +109,6 @@ export const deleteExercise = (exerciseId) => async (dispatch) => {
   }
 };
 
-
 export const getAllDiets = (userId) => async (dispatch) => {
   try {
     dispatch({
@@ -152,7 +151,7 @@ export const createDiet = (input, setData) => async (dispatch) => {
     const res = await createDietService(input);
     if (res.status === 201) {
       const { data } = res.data;
-      console.log(data)
+      console.log(data);
       dispatch({
         type: "CREATE_DIET",
         payload: data,
@@ -216,3 +215,108 @@ export const deleteDiet = (dietId) => async (dispatch) => {
   }
 };
 
+export const getAllGoals = (userId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
+    const res = await getAllGoalsService(userId);
+    if (res.status === 201) {
+      const { data } = res.data;
+      console.log(data);
+      dispatch({
+        type: "GET_ALL_GOALS",
+        payload: data,
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+    }
+  } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    console.log("Error:", e);
+    toast.error(
+      e?.response?.data?.error
+        ? e?.response?.data?.error
+        : "Something is wrong. Please try again!"
+    );
+  }
+};
+
+export const createGoal = (input, setData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
+    const res = await createGoalService(input);
+    if (res.status === 201) {
+      const { data } = res.data;
+      console.log(data);
+      dispatch({
+        type: "CREATE_GOAL",
+        payload: data,
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      setData(() => ({
+        name: "",
+        description: "",
+        targetDate: "",
+        targetCalorie: 0,
+        status: "",
+      }));
+      toast.success("Goal added successfully!");
+    }
+  } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    console.log("Error:", e);
+    toast.error(
+      e?.response?.data?.error
+        ? e?.response?.data?.error
+        : "Something is wrong. Please try again!"
+    );
+  }
+};
+
+export const deleteGoal = (goalId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
+    const res = await deleteGoalService(goalId);
+    if (res.status === 204) {
+      dispatch({
+        type: "DELETE_GOAL",
+        payload: goalId,
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      toast.success("Goal deleted successfully!");
+    }
+  } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    console.log("Error:", e);
+    toast.error(
+      e?.response?.data?.error
+        ? e?.response?.data?.error
+        : "Something is wrong. Please try again!"
+    );
+  }
+};

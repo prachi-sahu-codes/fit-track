@@ -54,7 +54,7 @@ const Diet = () => {
           <hr className="h-2px bg-primaryDark opacity-30" />
           <ul className="flex gap-8 mt-8">
             {foodData?.map((foodDiet) => (
-              <li className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
+              <li key={foodDiet._id} className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
                 <h2 className="text-blue font-semibold">{foodDiet.name}</h2>
                 <p className="my-2 text-sm">
                   Calories:{" "}
