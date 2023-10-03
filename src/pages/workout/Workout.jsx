@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../../layout/NavBar/NavBar";
+import NavBar from "../../layout/navBar/NavBar";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllExercises,
   createExercises,
-  deleteExercise
+  deleteExercise,
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { WorkoutModal } from "../../components/modal/WorkoutModal";
@@ -62,7 +62,10 @@ const Workout = () => {
                     {exe.caloriesBurned} calories
                   </span>
                 </p>
-                <button onClick={()=>dispatch(deleteExercise(exe._id))} className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue">
+                <button
+                  onClick={() => dispatch(deleteExercise(exe._id))}
+                  className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                >
                   Delete Exercise
                 </button>
               </li>
