@@ -26,7 +26,7 @@ const NavBar = ({ title }) => {
       <div className="flex gap-4">
         <Link
           className="w-9 h-9 rounded-full p-1 pt-2 border-2 border-primary cursor-pointer"
-          to="https://github.com/prachi-sahu-codes/fit-track"
+          to="https://github.com/prachi-sahu-codes?tab=repositories"
           target="_blank"
         >
           <FiGithub className="w-6 h-6 stroke-iconPurple" title="Github" />

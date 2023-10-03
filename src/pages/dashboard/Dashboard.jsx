@@ -6,7 +6,7 @@ import {
   calcTotalCaloriesConsumed,
   calcGoalCalories,
 } from "../../store/activityStore/action";
-import { FaFire, FaUtensils, FaCheck, FaBullseye, FaHourglassHalf } from "react-icons/fa";
+import { FaFire, FaUtensils, FaBullseye, FaHourglassHalf } from "react-icons/fa";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
