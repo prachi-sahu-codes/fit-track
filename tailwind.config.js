@@ -43,6 +43,7 @@ export default {
       },
 
       spacing: {
+        "w30":"30%",
         "calc-mainBody": "calc(100% - 9rem)",
         "calc-cardContainer":"calc(100%-1.25rem)"
       },
