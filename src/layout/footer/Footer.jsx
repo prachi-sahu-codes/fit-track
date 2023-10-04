@@ -13,14 +13,14 @@ const Footer = () => {
       <div className="flex gap-4 justify-center text-xs m-4">
       <Link
       className="hover:underline underline-offset-2 transition ease-in-out delay-75 duration-300 hover:scale-105"
-          to="https://www.linkedin.com/in/prachi-sahu-96b228200/"
+          to="https://github.com/prachi-sahu-codes/fit-track"
           target="_blank"
         >
           Frontend Repo
         </Link>
         <Link
          className="hover:underline underline-offset-2 transition ease-in-out delay-75 duration-300 hover:scale-105"
-          to="https://www.linkedin.com/in/prachi-sahu-96b228200/"
+          to="https://github.com/prachi-sahu-codes/fit-track-backend"
           target="_blank"
         >
           Backend Repo
@@ -28,7 +28,7 @@ const Footer = () => {
       </div>
       <div className="flex justify-center items-center gap-6">
         <Link
-          to="https://github.com/prachi-sahu-codes/fit-track-backend"
+          to="https://github.com/prachi-sahu-codes?tab=repositories"
           target="_blank"
         >
           <BsGithub className="w-6 h-6 transition ease-in-out delay-75 duration-300 hover:scale-125" />
