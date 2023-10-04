@@ -32,60 +32,65 @@ const Workout = () => {
   return (
     <div className="w-calc-mainBody p-1">
       <NavBar title="Workouts" />
-      <div className="w-96 flex justify-between items-center m-auto mt-4">
-        <h1 className="text-white">Add Your Exercise</h1>
-        <div
-          className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
-          onClick={() => setShowModal(true)}
-        >
-          {" "}
-          <AiOutlinePlus className="text-xl fill-white" />
+      <div className="h-calc-mainbody overflow-y-scroll hide-scrollbar">
+        <div className="w-96 flex justify-between items-center m-auto mt-4">
+          <h1 className="text-white">Add Your Exercise</h1>
+          <div
+            className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
+            onClick={() => setShowModal(true)}
+          >
+            {" "}
+            <AiOutlinePlus className="text-xl fill-white" />
+          </div>
         </div>
-      </div>
-      {exerciseData.length > 0 ? (
-        <div>
-          <h2 className="text-orange my-6 text-2xl">Your Exercises</h2>
-          <hr className="h-2px bg-primaryDark opacity-30" />
-          <ul className="flex gap-8 mt-8">
-            {exerciseData.map((exe) => (
-              <li key={exe._id} className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-                <h2 className="text-blue font-semibold">{exe.name}</h2>
-                <p className="my-2 text-sm">
-                  Duration:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {exe.duration} minutes
-                  </span>
-                </p>
-                <p className="text-sm">
-                  Calories Burned:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {exe.caloriesBurned} calories
-                  </span>
-                </p>
-                <button
-                  onClick={() => dispatch(deleteExercise(exe._id))}
-                  className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+        {exerciseData.length > 0 ? (
+          <div>
+            <h2 className="text-orange my-6 text-2xl">Your Exercises</h2>
+            <hr className="h-2px bg-primaryDark opacity-30" />
+            <ul className="flex gap-7 justify-between flex-wrap mt-8 mx-4 mr-7">
+              {exerciseData.map((exe) => (
+                <li
+                  key={exe._id}
+                  className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  Delete Exercise
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p className="text-xl text-lightGray text-center m-8">
-          No Exercises added yet!!
-        </p>
-      )}
+                  <h2 className="text-blue font-semibold">{exe.name}</h2>
+                  <p className="my-2 text-sm">
+                    Duration:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {exe.duration} minutes
+                    </span>
+                  </p>
+                  <p className="text-sm">
+                    Calories Burned:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {exe.caloriesBurned} calories
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => dispatch(deleteExercise(exe._id))}
+                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                  >
+                    Delete Exercise
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="text-xl text-lightGray text-center m-8">
+            No Exercises added yet!!
+          </p>
+        )}
 
-      {showModal && (
-        <WorkoutModal
-          data={data}
-          setData={setData}
-          setShowModal={setShowModal}
-          submitHandler={submitHandler}
-        />
-      )}
+        {showModal && (
+          <WorkoutModal
+            data={data}
+            setData={setData}
+            setShowModal={setShowModal}
+            submitHandler={submitHandler}
+          />
+        )}
+      </div>
     </div>
   );
 };

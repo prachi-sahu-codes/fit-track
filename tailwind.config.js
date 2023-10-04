@@ -10,6 +10,7 @@ export default {
       height: {
         "2px": "2px",
         "calc-sideBar": "calc(100vh - 2rem)",
+        "calc-mainbody":"calc(100vh - 5rem)"
       },
       backgroundImage: {
         "hero-pattern": "url('./assets/hero-acc.jpg')",

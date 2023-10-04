@@ -18,7 +18,7 @@ const NavBar = ({ title }) => {
   const user = useSelector((state) => state?.auth?.loggedUser);
 
   return (
-    <div className=" flex justify-between p-2">
+    <div className=" flex justify-between p-2 bg-bgWhole">
       <div>
         <h1 className="text-2xl text-white">{title}</h1>
         <p className="text-mediumGray text-xs">{today}</p>

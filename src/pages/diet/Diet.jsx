@@ -38,72 +38,77 @@ const Diet = () => {
   return (
     <div className="w-calc-mainBody p-1">
       <NavBar title="Diets" />
-      <div className="w-96 flex justify-between items-center m-auto mt-4">
-        <h1 className="text-white">Add Your Diet</h1>
-        <div
-          className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
-          onClick={() => setShowModal(true)}
-        >
-          {" "}
-          <AiOutlinePlus className="text-xl fill-white" />
+      <div className="h-calc-mainbody overflow-y-scroll hide-scrollbar">
+        <div className="w-96 flex justify-between items-center m-auto mt-4">
+          <h1 className="text-white">Add Your Diet</h1>
+          <div
+            className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
+            onClick={() => setShowModal(true)}
+          >
+            {" "}
+            <AiOutlinePlus className="text-xl fill-white" />
+          </div>
         </div>
-      </div>
-      {foodData?.length > 0 ? (
-        <div>
-          <h2 className="text-orange my-6 text-2xl">Your Diets</h2>
-          <hr className="h-2px bg-primaryDark opacity-30" />
-          <ul className="flex gap-8 mt-8">
-            {foodData?.map((foodDiet) => (
-              <li key={foodDiet._id} className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-                <h2 className="text-blue font-semibold">{foodDiet.name}</h2>
-                <p className="my-2 text-sm">
-                  Calories:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {foodDiet.calories} calories
-                  </span>
-                </p>
-                <p className="text-sm">
-                  Proteins:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {foodDiet.protein} grams
-                  </span>
-                </p>
-                <p className="my-2 text-sm">
-                  Carbohydrates:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {foodDiet.carbohydrates} grams
-                  </span>
-                </p>
-                <p className="text-sm">
-                  Fats:{" "}
-                  <span className="text-white text-lg pl-2">
-                    {foodDiet.fat} grams
-                  </span>
-                </p>
-                <button
-                  onClick={() => dispatch(deleteDiet(foodDiet._id))}
-                  className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+        {foodData?.length > 0 ? (
+          <div>
+            <h2 className="text-orange my-6 text-2xl">Your Diets</h2>
+            <hr className="h-2px bg-primaryDark opacity-30" />
+            <ul className="flex gap-7 justify-between ml-4 mr-7 flex-wrap mt-8">
+              {foodData?.map((foodDiet) => (
+                <li
+                  key={foodDiet._id}
+                  className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  Delete Diet
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p className="text-xl text-lightGray text-center m-8">
-          No Diets added yet!!
-        </p>
-      )}
+                  <h2 className="text-blue font-semibold">{foodDiet.name}</h2>
+                  <p className="my-2 text-sm">
+                    Calories:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {foodDiet.calories} calories
+                    </span>
+                  </p>
+                  <p className="text-sm">
+                    Proteins:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {foodDiet.protein} grams
+                    </span>
+                  </p>
+                  <p className="my-2 text-sm">
+                    Carbohydrates:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {foodDiet.carbohydrates} grams
+                    </span>
+                  </p>
+                  <p className="text-sm">
+                    Fats:{" "}
+                    <span className="text-white text-lg pl-2">
+                      {foodDiet.fat} grams
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => dispatch(deleteDiet(foodDiet._id))}
+                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                  >
+                    Delete Diet
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="text-xl text-lightGray text-center m-8">
+            No Diets added yet!!
+          </p>
+        )}
 
-      {showModal && (
-        <DietModal
-          data={data}
-          setData={setData}
-          setShowModal={setShowModal}
-          submitHandler={submitHandler}
-        />
-      )}
+        {showModal && (
+          <DietModal
+            data={data}
+            setData={setData}
+            setShowModal={setShowModal}
+            submitHandler={submitHandler}
+          />
+        )}
+      </div>
     </div>
   );
 };
