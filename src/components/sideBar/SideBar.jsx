@@ -20,7 +20,7 @@ const SideBar = () => {
       </div>
 
       <div>
-        <NavLink to="/dashboard" className="h-14 flex flex-col items-center">
+        <NavLink to="/dashboard" className="h-14 flex flex-col items-center ">
           {location.pathname === "/dashboard" ? (
             <div className="bg-activeIcon w-20 border-iconPurple border-opacity-20 flex flex-col items-center p-2 rounded-lg">
               <GoHome className=" fill-white text-lg" />
@@ -28,7 +28,7 @@ const SideBar = () => {
             </div>
           ) : (
             <div className="p-2">
-              <GoHome className=" fill-mediumGray text-lg" />
+              <GoHome className=" fill-mediumGray text-lg hover:fill-white hover:scale-125 transition ease-in-out delay-75 duration-300" />
             </div>
           )}
         </NavLink>
@@ -40,7 +40,7 @@ const SideBar = () => {
             </div>
           ) : (
             <div className="p-2">
-              <LiaDumbbellSolid className=" fill-mediumGray text-lg" />
+              <LiaDumbbellSolid className=" fill-mediumGray text-lg hover:fill-white hover:scale-125 transition ease-in-out delay-75 duration-300" />
             </div>
           )}
         </NavLink>
@@ -52,7 +52,7 @@ const SideBar = () => {
             </div>
           ) : (
             <div className="p-2">
-              <PiBowlFood className=" fill-mediumGray text-lg" />
+              <PiBowlFood className=" fill-mediumGray text-lg hover:fill-white hover:scale-125 transition ease-in-out delay-75 duration-300" />
             </div>
           )}
         </NavLink>
@@ -64,7 +64,7 @@ const SideBar = () => {
             </div>
           ) : (
             <div className="p-2">
-              <GoGoal className=" fill-mediumGray text-lg" />
+              <GoGoal className="fill-mediumGray text-lg hover:fill-white hover:scale-125 transition ease-in-out delay-75 duration-300" />
             </div>
           )}
         </NavLink>

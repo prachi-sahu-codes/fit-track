@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdCancel } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 
 const exeType = [
   { id: 1, value: "running", text: "Running" },
@@ -21,17 +21,17 @@ export const WorkoutModal = ({
       onClick={(e) => e.stopPropagation()}
     >
       <div className="absolute position-center w-72">
-        <div className="relative flex flex-col gap-4 mx-auto bg-white  shadow-md rounded-lg p-6 ">
+        <div className="relative flex flex-col gap-4 mx-auto bg-bgWhole  shadow-md rounded-lg p-6 ">
           <div
             onClick={() => setShowModal(false)}
-            className="absolute -top-2 -right-2"
+            className="absolute -top-3 -right-2"
           >
-            <MdCancel className="w-7 h-7 fill-primary bg-slate-50  rounded-full" />
+            <MdClear className="w-8 h-8 p-1 fill-lightGray bg-bgWhole rounded-full" />
           </div>
-          <h2 className="text-lg text-primary font-semibold">New Exercise</h2>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <h2 className="text-lg text-white font-semibold mb-3">New Exercise</h2>
+          <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
             <div className="w-full  py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="name">Name:</label>
+              <label htmlFor="name" className="text-blue">Exercise Name:</label>
               <input
                 type="text"
                 placeholder="Exercise Name"
@@ -46,7 +46,7 @@ export const WorkoutModal = ({
               />
             </div>
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="duration">Duration in minutes:</label>
+              <label htmlFor="duration" className="text-blue">Duration in minutes:</label>
               <input
                 type="number"
                 placeholder="Duration in minutes"
@@ -61,14 +61,14 @@ export const WorkoutModal = ({
               />
             </div>
             <div className="w-full py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="exerciseType">Exercise Type:</label>
+              <label htmlFor="exerciseType" className="text-blue">Exercise Type:</label>
               <select
-                className="w-full"
+                className="w-full bg-bgWhole"
                 onChange={(e) =>
                   setData((d) => ({ ...d, exerciseType: e.target.value }))
                 }
               >
-                <option disabled selected className="text-gray">
+                <option disabled selected>
                   Choose Type:
                 </option>
                 {exeType.map((exe) => (

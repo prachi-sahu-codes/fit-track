@@ -4,13 +4,17 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
+      sm: "640px",
       md700: "700px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
     },
     extend: {
       height: {
         "2px": "2px",
         "calc-sideBar": "calc(100vh - 2rem)",
-        "calc-mainbody":"calc(100vh - 5rem)"
+        "calc-mainbody": "calc(100vh - 5rem)",
       },
       backgroundImage: {
         "hero-pattern": "url('./assets/hero-acc.jpg')",
@@ -20,6 +24,7 @@ export default {
         primaryDark: "#4b31b3",
         iconPurple: "#665bce",
         orange: "#FF934E",
+        yellow:"#ffd60a",
         blue: "#4180fc",
         green: "#40CC7C",
         red: "#FF555D",
@@ -39,6 +44,7 @@ export default {
 
       spacing: {
         "calc-mainBody": "calc(100% - 9rem)",
+        "calc-cardContainer":"calc(100%-1.25rem)"
       },
     },
   },

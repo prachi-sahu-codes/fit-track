@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdCancel } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 
 const statusType = [
   { id: 1, value: "In Progress" },
@@ -14,17 +14,17 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
       onClick={(e) => e.stopPropagation()}
     >
       <div className="absolute position-center w-72">
-        <div className="relative flex flex-col gap-4 mx-auto bg-white  shadow-md rounded-lg p-6 ">
+        <div className="relative flex flex-col gap-4 mx-auto bg-bgWhole  shadow-md rounded-lg p-6 ">
           <div
             onClick={() => setShowModal(false)}
-            className="absolute -top-2 -right-2"
+            className="absolute -top-3 -right-2"
           >
-            <MdCancel className="w-7 h-7 fill-primary bg-slate-50  rounded-full" />
+            <MdClear className="w-8 h-8 p-1 fill-lightGray bg-bgWhole rounded-full" />
           </div>
-          <h2 className="text-lg text-primary font-semibold">New Goal</h2>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <h2 className="text-lg text-white font-semibold">New Goal</h2>
+          <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
             <div className="w-full  py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="name">Name:</label>
+              <label htmlFor="name" className="text-blue">Name:</label>
               <input
                 type="text"
                 placeholder="Goal Name"
@@ -40,7 +40,7 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full mt-5 py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="description">Goal description:</label>
+              <label htmlFor="description" className="text-blue">Goal description:</label>
               <textarea
                 placeholder="Goal description"
                 id="description"
@@ -55,7 +55,7 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="targetDate">Target date:</label>
+              <label htmlFor="targetDate" className="text-blue">Target date:</label>
               <input
                 type="date"
                 id="targetDate"
@@ -63,6 +63,7 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
                 value={data?.targetDate}
                 min="2023-10-04"
                 max="3000-12-30"
+                className="bg-bgWhole w-full"
                 onChange={(e) =>
                   setData((d) => ({ ...d, targetDate: e.target.value }))
                 }
@@ -71,7 +72,7 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="targetCalorie">Target calorie:</label>
+              <label htmlFor="targetCalorie" className="text-blue">Target calorie:</label>
               <input
                 type="number"
                 placeholder="Target calorie"
@@ -86,10 +87,10 @@ export const GoalModal = ({ data, setData, setShowModal, submitHandler }) => {
               />
             </div>
             <div className="w-full py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="status">Status:</label>
+              <label htmlFor="status" className="text-blue">Status:</label>
               <select
                 id="status"
-                className="w-full"
+                className="w-full bg-bgWhole"
                 onChange={(e) =>
                   setData((d) => ({ ...d, status: e.target.value }))
                 }

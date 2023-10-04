@@ -53,35 +53,35 @@ const Diet = () => {
           <div>
             <h2 className="text-orange my-6 text-2xl">Your Diets</h2>
             <hr className="h-2px bg-primaryDark opacity-30" />
-            <ul className="flex gap-7 justify-between ml-4 mr-7 flex-wrap mt-8">
+            <ul className="w-full gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-8 px-4 pr-7">
               {foodData?.map((foodDiet) => (
                 <li
                   key={foodDiet._id}
-                  className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
+                  className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <h2 className="text-blue font-semibold">{foodDiet.name}</h2>
-                  <p className="my-2 text-sm">
+                  <h2 className="text-blue text-xl font-semibold underline underline-offset-2">{foodDiet.name}</h2>
+                  <p className="my-3 text-sm">
                     Calories:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {foodDiet.calories} calories
+                    <span className="text-white text-base pl-2">
+                      {foodDiet.calories} cals
                     </span>
                   </p>
                   <p className="text-sm">
                     Proteins:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {foodDiet.protein} grams
+                    <span className="text-white text-base pl-2">
+                      {foodDiet.protein} gm
                     </span>
                   </p>
-                  <p className="my-2 text-sm">
+                  <p className="my-3 text-sm">
                     Carbohydrates:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {foodDiet.carbohydrates} grams
+                    <span className="text-white text-base pl-2">
+                      {foodDiet.carbohydrates} gm
                     </span>
                   </p>
                   <p className="text-sm">
                     Fats:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {foodDiet.fat} grams
+                    <span className="text-white text-base pl-2">
+                      {foodDiet.fat} gm
                     </span>
                   </p>
                   <button

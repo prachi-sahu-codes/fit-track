@@ -6,7 +6,7 @@ import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <div className="relative bottom-0 text-center text-blue py-11 px-4 bg-bgBox border-t-2 border-iconPurple border-opacity-30">
+    <div className="relative bottom-0 text-center text-blue py-11 px-4 mt-4 bg-bgBox border-t-2 border-iconPurple border-opacity-30">
       <p className="text-lg">
         Made with <span>&lt;/&gt;</span> by Prachi Sahu
       </p>

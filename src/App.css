@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 
-:root {
-  --primary: #665bce;
-  --box: #3a327b;
-  --gray: #adadad;
-  --black: #151515;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -37,4 +30,8 @@
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+input {
+  color-scheme: dark;
 }

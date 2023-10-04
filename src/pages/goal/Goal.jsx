@@ -53,37 +53,50 @@ const Goal = () => {
           <div>
             <h2 className="text-orange my-6 text-2xl">Your Goals</h2>
             <hr className="h-2px bg-primaryDark opacity-30" />
-            <ul className="flex gap-7 justify-between ml-4 mr-7 flex-wrap mt-8">
+            <ul className="fw-full gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-8 px-4 pr-7">
               {goalData?.map((goal) => (
                 <li
                   key={goal._id}
-                  className="w-72 text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
+                  className="w-full flex flex-col justify-between text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <h2 className="text-blue font-semibold">{goal.name}</h2>
-                  <p className="my-2 text-sm">
+                  <div>
+                  <h2 className="text-blue text-xl font-semibold underline underline-offset-2">{goal.name}</h2>
+                  <p className="my-4 text-sm">
                     Description:{" "}
-                    <span className="text-white text-lg pl-2">
+                    <span className="text-white text-base pl-2">
                       {goal.description}
                     </span>
                   </p>
                   <p className="text-sm">
                     Target Date:{" "}
-                    <span className="text-white text-lg pl-2">
+                    <span className="text-white text-base pl-2">
                       {goal.targetDate}
                     </span>
                   </p>
-                  <p className="my-2 text-sm">
+                  <p className="my-4 text-sm">
                     Target Calories:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {goal.targetCalories}
+                    <span className="text-white text-base pl-2">
+                      {goal.targetCalories} cals
                     </span>
                   </p>
                   <p className="text-sm">
                     Status:{" "}
-                    <span className="text-white text-lg pl-2">
-                      {goal.status}
-                    </span>
+                    {goal.status === "In Progress" ? (
+                      <span className="text-yellow text-base pl-2">
+                        {" "}
+                        {goal.status}
+                      </span>
+                    ) : goal.status === "Acheived" ? (
+                      <span className="text-green text-base pl-2">
+                        {goal.status}
+                      </span>
+                    ) : (
+                      <span className="text-red text-base pl-2">
+                        {goal.status}
+                      </span>
+                    )}
                   </p>
+                  </div>
                   <button
                     onClick={() => dispatch(deleteGoal(goal._id))}
                     className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"

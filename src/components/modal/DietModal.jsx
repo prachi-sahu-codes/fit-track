@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdCancel } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 
 export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
   return (
@@ -8,17 +8,17 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
       onClick={(e) => e.stopPropagation()}
     >
       <div className="absolute position-center w-72">
-        <div className="relative flex flex-col gap-4 mx-auto bg-white  shadow-md rounded-lg p-6 ">
+        <div className="relative flex flex-col gap-4 mx-auto bg-bgWhole shadow-md rounded-lg p-6 ">
           <div
             onClick={() => setShowModal(false)}
-            className="absolute -top-2 -right-2"
+            className="absolute -top-3 -right-2"
           >
-            <MdCancel className="w-7 h-7 fill-primary bg-slate-50  rounded-full" />
+            <MdClear className="w-8 h-8 p-1 fill-lightGray bg-bgWhole rounded-full" />
           </div>
-          <h2 className="text-lg text-primary font-semibold">New Diet</h2>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="w-full  py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="name">Diet Name:</label>
+          <h2 className="text-lg text-white font-semibold">New Diet</h2>
+          <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
+            <div className="w-full py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
+              <label htmlFor="name" className="text-blue">Diet Name:</label>
               <input
                 type="text"
                 placeholder="Diet Name"
@@ -33,7 +33,7 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
               />
             </div>
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="calories">Calories:</label>
+              <label htmlFor="calories" className="text-blue">Calories:</label>
               <input
                 type="number"
                 placeholder="Calories"
@@ -49,10 +49,10 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="protein">Proteins in grams:</label>
+              <label htmlFor="protein" className="text-blue">Proteins in gm:</label>
               <input
                 type="number"
-                placeholder="Proteins in grams"
+                placeholder="Proteins in gm"
                 id="protein"
                 name="Protein in grams"
                 value={data?.protein}
@@ -64,10 +64,10 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="carbohydrates">Carbohydrates in grams:</label>
+              <label htmlFor="carbohydrates" className="text-blue">Carbohydrates in gm:</label>
               <input
                 type="number"
-                placeholder="Carbohydrates in grams"
+                placeholder="Carbohydrates in gm"
                 id="carbohydrates"
                 name="Carbohydrates in grams"
                 value={data?.carbohydrates}
@@ -79,10 +79,10 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="fat">Fats in grams:</label>
+              <label htmlFor="fat" className="text-blue">Fats in gm:</label>
               <input
                 type="number"
-                placeholder="Fat in grams"
+                placeholder="Fat in gm"
                 id="fat"
                 name="Fats in grams"
                 value={data?.fat}
