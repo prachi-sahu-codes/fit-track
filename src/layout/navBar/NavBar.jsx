@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FiGithub } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
 
 const NavBar = ({ title }) => {
   function formatDate(date) {
@@ -20,7 +19,7 @@ const NavBar = ({ title }) => {
   return (
     <div className=" flex justify-between p-2 bg-bgWhole">
       <div>
-        <h1 className="text-2xl text-white">{title}</h1>
+        <h1 className="text-2xl text-white pt-2">{title}</h1>
         <p className="text-mediumGray text-xs">{today}</p>
       </div>
       <div className="flex gap-4">
