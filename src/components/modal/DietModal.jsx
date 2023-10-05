@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { MdClear } from "react-icons/md";
 
+const category = [
+  { id: 1, value: "Fruit" },
+  { id: 2, value: "Vegetable" },
+  { id: 3, value: "Dish" },
+];
+
 export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
   return (
     <div
@@ -18,7 +24,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
           <h2 className="text-lg text-white font-semibold">New Diet</h2>
           <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
             <div className="w-full py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="name" className="text-blue">Diet Name:</label>
+              <label htmlFor="name" className="text-blue">
+                Diet Name:
+              </label>
               <input
                 type="text"
                 placeholder="Diet Name"
@@ -33,7 +41,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
               />
             </div>
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="calories" className="text-blue">Calories:</label>
+              <label htmlFor="calories" className="text-blue">
+                Calories:
+              </label>
               <input
                 type="number"
                 placeholder="Calories"
@@ -49,7 +59,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="protein" className="text-blue">Proteins in gm:</label>
+              <label htmlFor="protein" className="text-blue">
+                Proteins in gm:
+              </label>
               <input
                 type="number"
                 placeholder="Proteins in gm"
@@ -64,7 +76,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="carbohydrates" className="text-blue">Carbohydrates in gm:</label>
+              <label htmlFor="carbohydrates" className="text-blue">
+                Carbohydrates in gm:
+              </label>
               <input
                 type="number"
                 placeholder="Carbohydrates in gm"
@@ -79,7 +93,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
             </div>
 
             <div className="w-full  py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
-              <label htmlFor="fat" className="text-blue">Fats in gm:</label>
+              <label htmlFor="fat" className="text-blue">
+                Fats in gm:
+              </label>
               <input
                 type="number"
                 placeholder="Fat in gm"
@@ -91,6 +107,28 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
                   setData((d) => ({ ...d, fat: e.target.value }))
                 }
               />
+            </div>
+
+            <div className="w-full py-1.5 px-5 mt-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
+              <label htmlFor="catg" className="text-blue">
+                Category:
+              </label>
+              <select
+                id="catg"
+                className="w-full bg-bgWhole"
+                onChange={(e) =>
+                  setData((d) => ({ ...d, category: e.target.value }))
+                }
+              >
+                <option disabled selected className="text-gray">
+                  Choose Type:
+                </option>
+                {category.map((catg) => (
+                  <option key={catg.id} value={catg.value}>
+                    {catg.value}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <button

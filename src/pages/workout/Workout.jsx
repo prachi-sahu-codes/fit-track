@@ -9,6 +9,7 @@ import {
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { WorkoutModal } from "../../components/modal/WorkoutModal";
+import {BiRun} from "react-icons/bi";
 
 const Workout = () => {
   const [data, setData] = useState({ name: "", duration: 0, exerciseType: "" });
@@ -53,8 +54,8 @@ const Workout = () => {
                   key={exe._id}
                   className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <h2 className="text-blue text-xl font-semibold underline underline-offset-2">{exe.name}</h2>
-                  <p className="my-3 text-sm">
+                  <h2 className="flex items-center gap-2 text-blue mb-4 text-xl font-semibold underline underline-offset-2"><BiRun/>{exe.name}</h2>
+                  <p className="my-2 text-sm">
                     Duration:{" "}
                     <span className="text-white text-base pl-2">
                       {exe.duration} min
@@ -68,7 +69,7 @@ const Workout = () => {
                   </p>
                   <button
                     onClick={() => dispatch(deleteExercise(exe._id))}
-                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
                   >
                     Delete Exercise
                   </button>

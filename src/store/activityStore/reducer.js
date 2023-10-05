@@ -57,7 +57,7 @@ export const activityReducer = (state = InitialState, action) => {
         goals: [...state.goals, action.payload],
       };
     case "DELETE_GOAL":
-      const updateGoal = state.diets.filter(
+      const updateGoal = state.goals.filter(
         (diet) => diet?._id !== action.payload
       );
       return {

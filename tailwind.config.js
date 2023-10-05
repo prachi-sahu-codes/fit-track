@@ -24,10 +24,11 @@ export default {
         primaryDark: "#4b31b3",
         iconPurple: "#665bce",
         orange: "#FF934E",
-        yellow:"#ffd60a",
-        blue: "#4180fc",
+        yellow: "#ffd60a",
         green: "#40CC7C",
         red: "#FF555D",
+        blue: "#4180fc",
+        blueDark:"#296efa",
         black: "#151515",
         bgWhole: "#171430",
         bgBox: "#24204b",
@@ -40,12 +41,13 @@ export default {
         bgColorLoad: "#e2e2e2c4",
         bgModal: "#54545488",
         shadowDark: "#080707",
+       
       },
 
       spacing: {
-        "w30":"30%",
+        w30: "30%",
         "calc-mainBody": "calc(100% - 9rem)",
-        "calc-cardContainer":"calc(100%-1.25rem)"
+        "calc-cardContainer": "calc(100%-1.25rem)",
       },
     },
   },

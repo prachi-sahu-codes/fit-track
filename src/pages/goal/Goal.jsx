@@ -9,19 +9,20 @@ import {
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { GoalModal } from "../../components/modal/GoalModal";
-
+import { FaCheck, FaTimes, FaBan } from "react-icons/fa";
+import { ImStopwatch } from "react-icons/im";
 const Goal = () => {
   const [data, setData] = useState({
     name: "",
     description: "",
-    targetDate: "2023-10-04",
+    targetDate: "",
     targetCalories: 0,
     status: "",
   });
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const goalData = useSelector((state) => state.activity.goals);
-  const user = useSelector((state) => state.auth.loggedUser);
+  const goalData = useSelector((state) => state?.activity?.goals);
+  const user = useSelector((state) => state?.auth?.loggedUser);
   useEffect(() => {
     dispatch(getAllGoals(user._id));
   }, []);
@@ -60,46 +61,55 @@ const Goal = () => {
                   className="w-full flex flex-col justify-between text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
                   <div>
-                  <h2 className="text-blue text-xl font-semibold underline underline-offset-2">{goal.name}</h2>
-                  <p className="my-4 text-sm">
-                    Description:{" "}
-                    <span className="text-white text-base pl-2">
-                      {goal.description}
-                    </span>
-                  </p>
-                  <p className="text-sm">
-                    Target Date:{" "}
-                    <span className="text-white text-base pl-2">
-                      {goal.targetDate}
-                    </span>
-                  </p>
-                  <p className="my-4 text-sm">
-                    Target Calories:{" "}
-                    <span className="text-white text-base pl-2">
-                      {goal.targetCalories} cals
-                    </span>
-                  </p>
-                  <p className="text-sm">
-                    Status:{" "}
-                    {goal.status === "In Progress" ? (
-                      <span className="text-yellow text-base pl-2">
-                        {" "}
+                    <h2
+                      className={`flex items-center gap-2 text-blue mb-4 text-xl font-semibold underline underline-offset-2 ${
+                        goal.status === "In Progress"
+                          ? "text-yellow"
+                          : goal.status === "Acheived"
+                          ? "text-green"
+                          : "text-orange"
+                      }`}
+                    >
+                      {goal.status === "In Progress" ? (
+                        <ImStopwatch />
+                      ) : goal.status === "Acheived" ? (
+                        <FaCheck />
+                      ) : goal.status === "Failed" ? (
+                        <FaTimes />
+                      ) : (
+                        <FaBan />
+                      )}
+
+                      {goal.name}
+                    </h2>
+                    <p className="my-2 text-sm">
+                      Description:{" "}
+                      <span className="text-white text-base pl-2">
+                        {goal.description}
+                      </span>
+                    </p>
+                    <p className="text-sm">
+                      Target Date:{" "}
+                      <span className="text-white text-base pl-2">
+                        {goal.targetDate}
+                      </span>
+                    </p>
+                    <p className="my-2 text-sm">
+                      Target Calories:{" "}
+                      <span className="text-white text-base pl-2">
+                        {goal.targetCalories} cals
+                      </span>
+                    </p>
+                    <p className="text-sm">
+                      Status:{" "}
+                      <span className="text-white text-base pl-2">
                         {goal.status}
                       </span>
-                    ) : goal.status === "Acheived" ? (
-                      <span className="text-green text-base pl-2">
-                        {goal.status}
-                      </span>
-                    ) : (
-                      <span className="text-red text-base pl-2">
-                        {goal.status}
-                      </span>
-                    )}
-                  </p>
+                    </p>
                   </div>
                   <button
                     onClick={() => dispatch(deleteGoal(goal._id))}
-                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
                   >
                     Delete Goal
                   </button>

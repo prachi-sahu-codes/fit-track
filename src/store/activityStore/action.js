@@ -164,6 +164,7 @@ export const createDiet = (input, setData) => async (dispatch) => {
         protein: 0,
         carbohydrates: 0,
         fat: 0,
+        category:""
       }));
       toast.success("Diet added successfully!");
     }

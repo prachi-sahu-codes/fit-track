@@ -9,6 +9,7 @@ import {
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { DietModal } from "../../components/modal/DietModal";
+import { GiFruitBowl, GiOakLeaf, GiBowlOfRice } from "react-icons/gi";
 
 const Diet = () => {
   const [data, setData] = useState({
@@ -17,6 +18,7 @@ const Diet = () => {
     protein: 0,
     carbohydrates: 0,
     fat: 0,
+    category: "",
   });
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
@@ -59,8 +61,25 @@ const Diet = () => {
                   key={foodDiet._id}
                   className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <h2 className="text-blue text-xl font-semibold underline underline-offset-2">{foodDiet.name}</h2>
-                  <p className="my-3 text-sm">
+                  <h2
+                    className={`flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 mb-4 ${
+                      foodDiet.category === "Dish"
+                        ? "text-orange"
+                        : foodDiet.category === "Fruit"
+                        ? "text-yellow"
+                        : "text-green"
+                    }`}
+                  >
+                    {foodDiet.category === "Vegetable" ? (
+                      <GiOakLeaf />
+                    ) : foodDiet.category === "Fruit" ? (
+                      <GiFruitBowl />
+                    ) : (
+                      <GiBowlOfRice />
+                    )}
+                    {foodDiet.name}
+                  </h2>
+                  <p className="my-2 text-sm">
                     Calories:{" "}
                     <span className="text-white text-base pl-2">
                       {foodDiet.calories} cals
@@ -72,7 +91,7 @@ const Diet = () => {
                       {foodDiet.protein} gm
                     </span>
                   </p>
-                  <p className="my-3 text-sm">
+                  <p className="my-2 text-sm">
                     Carbohydrates:{" "}
                     <span className="text-white text-base pl-2">
                       {foodDiet.carbohydrates} gm
@@ -84,9 +103,15 @@ const Diet = () => {
                       {foodDiet.fat} gm
                     </span>
                   </p>
+                  <p className="text-sm mt-2">
+                    Category:{" "}
+                    <span className="text-white text-base pl-2">
+                      {foodDiet.category}
+                    </span>
+                  </p>
                   <button
                     onClick={() => dispatch(deleteDiet(foodDiet._id))}
-                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-red active:bg-blue"
+                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
                   >
                     Delete Diet
                   </button>
