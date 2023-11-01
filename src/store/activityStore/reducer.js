@@ -20,13 +20,21 @@ export const activityReducer = (state = InitialState, action) => {
         ...state,
         exercises: [...state.exercises, action.payload],
       };
+    case "UPDATE_EXERCISE":
+      const updatedExercise = state.exercises.map((exe) =>
+        exe?._id === action.payload._id ? action.payload : exe
+      );
+      return {
+        ...state,
+        exercises: updatedExercise,
+      };
     case "DELETE_EXERCISE":
-      const updateExercise = state.exercises.filter(
+      const deleteExercise = state.exercises.filter(
         (exe) => exe?._id !== action.payload
       );
       return {
         ...state,
-        exercises: updateExercise,
+        exercises: deleteExercise,
       };
     case "GET_ALL_DIET":
       return {

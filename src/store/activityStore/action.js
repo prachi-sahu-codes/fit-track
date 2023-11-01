@@ -1,6 +1,7 @@
 import {
   getAllExercisesService,
   createExerciseService,
+  updateExerciseService,
   deleteExerciseService,
   getAllDietsService,
   createDietService,
@@ -76,6 +77,42 @@ export const createExercises = (input, setData) => async (dispatch) => {
     );
   }
 };
+
+export const updateExercise =
+  (exerciseId, exerciseData, setData) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "LOADING",
+        payload: true,
+      });
+      const res = await updateExerciseService(exerciseId, exerciseData);
+      if (res.status === 201) {
+        const { data } = res.data;
+        console.log(data);
+        dispatch({
+          type: "UPDATE_EXERCISE",
+          payload: data,
+        });
+        dispatch({
+          type: "LOADING",
+          payload: false,
+        });
+        setData(() => ({ name: "", duration: 0, exerciseType: "" }));
+        toast.success("Exercise updated successfully!");
+      }
+    } catch (e) {
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      console.log("Error:", e);
+      toast.error(
+        e?.response?.data?.error
+          ? e?.response?.data?.error
+          : "Something is wrong. Please try again!"
+      );
+    }
+  };
 
 export const deleteExercise = (exerciseId) => async (dispatch) => {
   try {
@@ -164,7 +201,7 @@ export const createDiet = (input, setData) => async (dispatch) => {
         protein: 0,
         carbohydrates: 0,
         fat: 0,
-        category:""
+        category: "",
       }));
       toast.success("Diet added successfully!");
     }

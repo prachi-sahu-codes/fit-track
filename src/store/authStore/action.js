@@ -63,7 +63,6 @@ export const loginUser = (input, navigate) => async (dispatch) => {
         payload: false,
       });
       navigate("/dashboard");
-      console.log(res);
       toast.success(`Greetings, ${user.username} ! Enjoy your time with us!`);
     }
   } catch (e) {

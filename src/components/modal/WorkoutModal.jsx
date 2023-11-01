@@ -7,6 +7,7 @@ export const WorkoutModal = ({
   setData,
   setShowModal,
   submitHandler,
+  actionType,
 }) => {
   return (
     <div
@@ -21,8 +22,9 @@ export const WorkoutModal = ({
           >
             <MdClear className="w-8 h-8 p-1 fill-lightGray bg-bgWhole rounded-full" />
           </div>
-          <h2 className="text-lg text-white font-semibold mb-3">
-            New Exercise
+          <h2 className="flex gap-2 text-lg text-white font-semibold mb-3">
+            <span>{actionType.type === "add" ? "New" : "Update"}</span>
+            Exercise
           </h2>
           <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
             <div className="w-full  py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
@@ -65,6 +67,7 @@ export const WorkoutModal = ({
               </label>
               <select
                 className="w-full bg-bgWhole"
+                value={data?.exerciseType}
                 onChange={(e) =>
                   setData((d) => ({ ...d, exerciseType: e.target.value }))
                 }
@@ -82,9 +85,10 @@ export const WorkoutModal = ({
 
             <button
               onClick={() => submitHandler(data)}
-              className="w-full inline-block p-1.5 mt-7 font-semibold text-white bg-primary rounded-lg hover:bg-primaryDark active:bg-primary"
+              className="flex justify-center items-center gap-2 w-full p-1.5 mt-7 font-semibold text-white bg-primary rounded-lg hover:bg-primaryDark active:bg-primary"
             >
-              Add Exercise
+              <span>{actionType.type === "add" ? "New" : "Update"}</span>{" "}
+              Exercise
             </button>
           </form>
         </div>

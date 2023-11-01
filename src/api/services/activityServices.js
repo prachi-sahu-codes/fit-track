@@ -8,6 +8,9 @@ export const getAllExercisesService = (userId) =>
 export const createExerciseService = (exerciseData) =>
   axios.post(EXERCISE_URL, exerciseData);
 
+export const updateExerciseService = (exerciseId, exerciseData) =>
+  axios.post(`${EXERCISE_URL}/${exerciseId}`, exerciseData);
+
 export const deleteExerciseService = (exerciseId) =>
   axios.delete(`${EXERCISE_URL}/${exerciseId}`);
 
