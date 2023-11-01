@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAllGoals,
   createGoal,
+  updateGoal,
   deleteGoal,
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { GoalModal } from "../../components/modal/GoalModal";
 import { FaCheck, FaTimes, FaBan } from "react-icons/fa";
 import { ImStopwatch } from "react-icons/im";
+import { MdEdit } from "react-icons/md";
+
 const Goal = () => {
   const [data, setData] = useState({
     name: "",
@@ -20,6 +23,7 @@ const Goal = () => {
     status: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const [actionType, setActionType] = useState({ type: "add", id: "" });
   const dispatch = useDispatch();
   const goalData = useSelector((state) => state?.activity?.goals);
   const user = useSelector((state) => state?.auth?.loggedUser);
@@ -29,7 +33,13 @@ const Goal = () => {
 
   const submitHandler = () => {
     if (data.name && data.targetCalories && data.targetDate && data.status) {
-      dispatch(createGoal({ ...data, userId: user._id }, setData));
+      if (actionType.type === "add") {
+        dispatch(createGoal({ ...data, userId: user._id }, setData));
+      } else {
+        dispatch(
+          updateGoal(actionType.id, { ...data, userId: user._id }, setData)
+        );
+      }
       setShowModal(false);
     } else {
       toast.error("Please fill in all fields with valid details.!");
@@ -44,7 +54,17 @@ const Goal = () => {
           <h1 className="text-white">Add Your Goal</h1>
           <div
             className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setData({
+                name: "",
+                description: "",
+                targetDate: "",
+                targetCalories: 0,
+                status: "",
+              });
+              setActionType(() => ({ type: "add", id: "" }));
+              setShowModal(true);
+            }}
           >
             {" "}
             <AiOutlinePlus className="text-xl fill-white" />
@@ -61,27 +81,49 @@ const Goal = () => {
                   className="w-full flex flex-col justify-between text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
                   <div>
-                    <h2
-                      className={`flex items-center gap-2 text-blue mb-4 text-xl font-semibold underline underline-offset-2 ${
-                        goal.status === "In Progress"
-                          ? "text-yellow"
-                          : goal.status === "Acheived"
-                          ? "text-green"
-                          : "text-orange"
-                      }`}
-                    >
-                      {goal.status === "In Progress" ? (
-                        <ImStopwatch />
-                      ) : goal.status === "Acheived" ? (
-                        <FaCheck />
-                      ) : goal.status === "Failed" ? (
-                        <FaTimes />
-                      ) : (
-                        <FaBan />
-                      )}
+                    <div className="flex justify-between items-center mb-4">
+                      <h2
+                        className={`flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 ${
+                          goal.status === "In Progress"
+                            ? "text-yellow"
+                            : goal.status === "Acheived"
+                            ? "text-green"
+                            : "text-orange"
+                        }`}
+                      >
+                        {goal.status === "In Progress" ? (
+                          <ImStopwatch className="shrink-0" />
+                        ) : goal.status === "Acheived" ? (
+                          <FaCheck className="shrink-0" />
+                        ) : goal.status === "Failed" ? (
+                          <FaTimes className="shrink-0" />
+                        ) : (
+                          <FaBan className="shrink-0" />
+                        )}
 
-                      {goal.name}
-                    </h2>
+                        {goal.name}
+                      </h2>
+                      <button
+                        className=" text-blue text-lg"
+                        title="edit"
+                        onClick={() => {
+                          setData(() => ({
+                            name: goal.name,
+                            description: goal.description,
+                            targetDate: goal.targetDate,
+                            targetCalories: goal.targetCalories,
+                            status: goal.status,
+                          }));
+                          setActionType(() => ({
+                            type: "update",
+                            id: goal._id,
+                          }));
+                          setShowModal(true);
+                        }}
+                      >
+                        <MdEdit />
+                      </button>
+                    </div>
                     <p className="my-2 text-sm">
                       Description:{" "}
                       <span className="text-white text-base pl-2">
@@ -129,6 +171,7 @@ const Goal = () => {
             setData={setData}
             setShowModal={setShowModal}
             submitHandler={submitHandler}
+            actionType={actionType}
           />
         )}
       </div>

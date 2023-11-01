@@ -46,6 +46,14 @@ export const activityReducer = (state = InitialState, action) => {
         ...state,
         diets: [...state.diets, action.payload],
       };
+    case "UPDATE_DIET":
+      const updatedDiet = state.diets.map((diet) =>
+        diet?._id === action.payload._id ? action.payload : diet
+      );
+      return {
+        ...state,
+        diets: updatedDiet,
+      };
     case "DELETE_DIET":
       const updateDiets = state.diets.filter(
         (diet) => diet?._id !== action.payload
@@ -63,6 +71,14 @@ export const activityReducer = (state = InitialState, action) => {
       return {
         ...state,
         goals: [...state.goals, action.payload],
+      };
+    case "UPDATE_GOAL":
+      const updatedGoal = state.goals.map((goal) =>
+        goal?._id === action.payload._id ? action.payload : goal
+      );
+      return {
+        ...state,
+        goals: updatedGoal,
       };
     case "DELETE_GOAL":
       const updateGoal = state.goals.filter(

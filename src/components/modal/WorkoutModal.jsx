@@ -87,7 +87,7 @@ export const WorkoutModal = ({
               onClick={() => submitHandler(data)}
               className="flex justify-center items-center gap-2 w-full p-1.5 mt-7 font-semibold text-white bg-primary rounded-lg hover:bg-primaryDark active:bg-primary"
             >
-              <span>{actionType.type === "add" ? "New" : "Update"}</span>{" "}
+              <span>{actionType.type === "add" ? "Add" : "Update"}</span>{" "}
               Exercise
             </button>
           </form>

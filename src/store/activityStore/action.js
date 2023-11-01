@@ -5,9 +5,11 @@ import {
   deleteExerciseService,
   getAllDietsService,
   createDietService,
+  updateDietService,
   deleteDietService,
   getAllGoalsService,
   createGoalService,
+  updateGoalService,
   deleteGoalService,
 } from "../../api/services/activityServices";
 import { toast } from "react-toastify";
@@ -88,7 +90,6 @@ export const updateExercise =
       const res = await updateExerciseService(exerciseId, exerciseData);
       if (res.status === 201) {
         const { data } = res.data;
-        console.log(data);
         dispatch({
           type: "UPDATE_EXERCISE",
           payload: data,
@@ -219,6 +220,47 @@ export const createDiet = (input, setData) => async (dispatch) => {
   }
 };
 
+export const updateDiet = (dietId, dietData, setData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
+    const res = await updateDietService(dietId, dietData);
+    if (res.status === 201) {
+      const { data } = res.data;
+      dispatch({
+        type: "UPDATE_DIET",
+        payload: data,
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      setData(() => ({
+        name: "",
+        calories: 0,
+        protein: 0,
+        carbohydrates: 0,
+        fat: 0,
+        category: "",
+      }));
+      toast.success("Diet updated successfully!");
+    }
+  } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    console.log("Error:", e);
+    toast.error(
+      e?.response?.data?.error
+        ? e?.response?.data?.error
+        : "Something is wrong. Please try again!"
+    );
+  }
+};
+
 export const deleteDiet = (dietId) => async (dispatch) => {
   try {
     dispatch({
@@ -308,6 +350,46 @@ export const createGoal = (input, setData) => async (dispatch) => {
         status: "",
       }));
       toast.success("Goal added successfully!");
+    }
+  } catch (e) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    console.log("Error:", e);
+    toast.error(
+      e?.response?.data?.error
+        ? e?.response?.data?.error
+        : "Something is wrong. Please try again!"
+    );
+  }
+};
+
+export const updateGoal = (goalId, goalData, setData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LOADING",
+      payload: true,
+    });
+    const res = await updateGoalService(goalId, goalData);
+    if (res.status === 201) {
+      const { data } = res.data;
+      dispatch({
+        type: "UPDATE_GOAL",
+        payload: data,
+      });
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      setData(() => ({
+        name: "",
+        description: "",
+        targetDate: "",
+        targetCalorie: 0,
+        status: "",
+      }));
+      toast.success("Goal updated successfully!");
     }
   } catch (e) {
     dispatch({

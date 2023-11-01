@@ -7,7 +7,13 @@ const category = [
   { id: 3, value: "Dish" },
 ];
 
-export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
+export const DietModal = ({
+  data,
+  setData,
+  setShowModal,
+  submitHandler,
+  actionType,
+}) => {
   return (
     <div
       className="fixed top-0 left-0 z-50 w-full h-full bg-bgModal"
@@ -21,7 +27,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
           >
             <MdClear className="w-8 h-8 p-1 fill-lightGray bg-bgWhole rounded-full" />
           </div>
-          <h2 className="text-lg text-white font-semibold">New Diet</h2>
+          <h2 className="flex gap-2 text-lg text-white font-semibold">
+            <span>{actionType.type === "add" ? "New" : "Update"}</span> Diet
+          </h2>
           <form onSubmit={(e) => e.preventDefault()} className="text-lightGray">
             <div className="w-full py-1.5 px-5 font-semibold border-2 rounded-lg border-lightGray m-auto">
               <label htmlFor="name" className="text-blue">
@@ -116,6 +124,7 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
               <select
                 id="catg"
                 className="w-full bg-bgWhole"
+                value={data?.category}
                 onChange={(e) =>
                   setData((d) => ({ ...d, category: e.target.value }))
                 }
@@ -133,9 +142,9 @@ export const DietModal = ({ data, setData, setShowModal, submitHandler }) => {
 
             <button
               onClick={() => submitHandler(data)}
-              className="w-full inline-block p-1.5 mt-7 font-semibold text-white bg-primary rounded-lg hover:bg-primaryDark active:bg-primary"
+              className="w-full flex justify-center items-center gap-2 p-1.5 mt-7 font-semibold text-white bg-primary rounded-lg hover:bg-primaryDark active:bg-primary"
             >
-              Add Diet
+              <span>{actionType.type === "add" ? "Add" : "Update"}</span> Diet
             </button>
           </form>
         </div>

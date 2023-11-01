@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAllDiets,
   createDiet,
+  updateDiet,
   deleteDiet,
 } from "../../store/activityStore/action";
 import { toast } from "react-toastify";
 import { DietModal } from "../../components/modal/DietModal";
 import { GiFruitBowl, GiOakLeaf, GiBowlOfRice } from "react-icons/gi";
+import { MdEdit } from "react-icons/md";
 
 const Diet = () => {
   const [data, setData] = useState({
@@ -21,6 +23,7 @@ const Diet = () => {
     category: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const [actionType, setActionType] = useState({ type: "add", id: "" });
   const dispatch = useDispatch();
   const foodData = useSelector((state) => state.activity.diets);
   const user = useSelector((state) => state.auth.loggedUser);
@@ -30,7 +33,13 @@ const Diet = () => {
 
   const submitHandler = () => {
     if (data.name && data.calories) {
-      dispatch(createDiet({ ...data, userId: user._id }, setData));
+      if (actionType.type === "add") {
+        dispatch(createDiet({ ...data, userId: user._id }, setData));
+      } else {
+        dispatch(
+          updateDiet(actionType.id, { ...data, userId: user._id }, setData)
+        );
+      }
       setShowModal(false);
     } else {
       toast.error("Please fill in all fields with valid details.!");
@@ -45,7 +54,18 @@ const Diet = () => {
           <h1 className="text-white">Add Your Diet</h1>
           <div
             className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setData({
+                name: "",
+                calories: 0,
+                protein: 0,
+                carbohydrates: 0,
+                fat: 0,
+                category: "",
+              });
+              setActionType(() => ({ type: "add", id: "" }));
+              setShowModal(true);
+            }}
           >
             {" "}
             <AiOutlinePlus className="text-xl fill-white" />
@@ -59,56 +79,81 @@ const Diet = () => {
               {foodData?.map((foodDiet) => (
                 <li
                   key={foodDiet._id}
-                  className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
+                  className="w-full flex flex-col justify-between text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <h2
-                    className={`flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 mb-4 ${
-                      foodDiet.category === "Dish"
-                        ? "text-orange"
-                        : foodDiet.category === "Fruit"
-                        ? "text-yellow"
-                        : "text-green"
-                    }`}
-                  >
-                    {foodDiet.category === "Vegetable" ? (
-                      <GiOakLeaf />
-                    ) : foodDiet.category === "Fruit" ? (
-                      <GiFruitBowl />
-                    ) : (
-                      <GiBowlOfRice />
-                    )}
-                    {foodDiet.name}
-                  </h2>
-                  <p className="my-2 text-sm">
-                    Calories:{" "}
-                    <span className="text-white text-base pl-2">
-                      {foodDiet.calories} cals
-                    </span>
-                  </p>
-                  <p className="text-sm">
-                    Proteins:{" "}
-                    <span className="text-white text-base pl-2">
-                      {foodDiet.protein} gm
-                    </span>
-                  </p>
-                  <p className="my-2 text-sm">
-                    Carbohydrates:{" "}
-                    <span className="text-white text-base pl-2">
-                      {foodDiet.carbohydrates} gm
-                    </span>
-                  </p>
-                  <p className="text-sm">
-                    Fats:{" "}
-                    <span className="text-white text-base pl-2">
-                      {foodDiet.fat} gm
-                    </span>
-                  </p>
-                  <p className="text-sm mt-2">
-                    Category:{" "}
-                    <span className="text-white text-base pl-2">
-                      {foodDiet.category}
-                    </span>
-                  </p>
+                  <div>
+                    <div className="flex justify-between items-center mb-4">
+                      <h2
+                        className={`flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 ${
+                          foodDiet.category === "Dish"
+                            ? "text-orange"
+                            : foodDiet.category === "Fruit"
+                            ? "text-yellow"
+                            : "text-green"
+                        }`}
+                      >
+                        {foodDiet.category === "Vegetable" ? (
+                          <GiOakLeaf className="shrink-0" />
+                        ) : foodDiet.category === "Fruit" ? (
+                          <GiFruitBowl className="shrink-0" />
+                        ) : (
+                          <GiBowlOfRice className="shrink-0" />
+                        )}
+                        {foodDiet.name}
+                      </h2>
+                      <button
+                        className=" text-blue text-lg"
+                        title="edit"
+                        onClick={() => {
+                          setData(() => ({
+                            name: foodDiet.name,
+                            calories: foodDiet.calories,
+                            protein: foodDiet.protein,
+                            carbohydrates: foodDiet.carbohydrates,
+                            fat: foodDiet.fat,
+                            category: foodDiet.category,
+                          }));
+                          setActionType(() => ({
+                            type: "update",
+                            id: foodDiet._id,
+                          }));
+                          setShowModal(true);
+                        }}
+                      >
+                        <MdEdit />
+                      </button>
+                    </div>
+                    <p className="my-2 text-sm">
+                      Calories:{" "}
+                      <span className="text-white text-base pl-2">
+                        {foodDiet.calories} cals
+                      </span>
+                    </p>
+                    <p className="text-sm">
+                      Proteins:{" "}
+                      <span className="text-white text-base pl-2">
+                        {foodDiet.protein} gm
+                      </span>
+                    </p>
+                    <p className="my-2 text-sm">
+                      Carbohydrates:{" "}
+                      <span className="text-white text-base pl-2">
+                        {foodDiet.carbohydrates} gm
+                      </span>
+                    </p>
+                    <p className="text-sm">
+                      Fats:{" "}
+                      <span className="text-white text-base pl-2">
+                        {foodDiet.fat} gm
+                      </span>
+                    </p>
+                    <p className="text-sm mt-2">
+                      Category:{" "}
+                      <span className="text-white text-base pl-2">
+                        {foodDiet.category}
+                      </span>
+                    </p>
+                  </div>
                   <button
                     onClick={() => dispatch(deleteDiet(foodDiet._id))}
                     className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
@@ -131,6 +176,7 @@ const Diet = () => {
             setData={setData}
             setShowModal={setShowModal}
             submitHandler={submitHandler}
+            actionType={actionType}
           />
         )}
       </div>
