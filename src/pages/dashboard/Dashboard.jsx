@@ -13,11 +13,17 @@ import {
   FaBullseye,
   FaHourglassHalf,
 } from "react-icons/fa";
+import Chart from "../../components/chart/Chart";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.loggedUser);
-  const activity = useSelector((state) => state.activity);
+  const {
+    totalCaloriesBurned,
+    totalCaloriesConsumed,
+    totalCaloriesGoals,
+    totalCaloriesRemaining,
+  } = useSelector((state) => state.activity);
 
   useEffect(() => {
     dispatch(calcTotalCaloriesBurned(user?._id));
@@ -26,6 +32,12 @@ const Dashboard = () => {
   }, []);
 
   const username = user?.username[0].toUpperCase() + user?.username.slice(1);
+  const chartData = {
+    totalCaloriesBurned,
+    totalCaloriesConsumed,
+    totalCaloriesGoals,
+    totalCaloriesRemaining,
+  };
 
   return (
     <div className="w-calc-mainBody p-1">
@@ -37,40 +49,56 @@ const Dashboard = () => {
               Hi, <span className="font-semibold text-blue">{username}!!</span>
             </h2>
             <p className="text-mediumGray xl:w-5/6 tracking-wider">
-              Live a healthier lifestyle by achieving your fitness goals. Plan workouts, monitor nutrition, and set new goals. Welcome to your personalized fitness hub where you take control of your health and well-being.
+              Live a healthier lifestyle by achieving your fitness goals. Plan
+              workouts, monitor nutrition, and set new goals. Welcome to your
+              personalized fitness hub where you take control of your health and
+              well-being.
             </p>
           </div>
-          <img src={dashboard} className="w-2/5 lg:w-w30 hidden lg:block -mt-16" />
+          <img
+            src={dashboard}
+            className="w-2/5 lg:w-w30 hidden lg:block -mt-16"
+          />
         </div>
 
-        <div className="w-full gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-8 px-4 pr-7">
-          <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-            <h2 className="text-blue">Total Calories Burned</h2>
-            <p className="flex items-center flex-wrap gap-2 text-white text-xl my-4">
-              <FaFire className="fill-red" />
-              {activity?.totalCaloriesBurned}
-            </p>
+        <h2 className="text-orange m-6 mt-14 mb-8 text-2xl">
+          Calorie Analytics
+        </h2>
+        <div className="flex flex-wrap items-center justify-center gap-5 m-4 mr-8 border-2 border-iconPurple border-opacity-20 md:p-4 rounded-lg">
+          {(totalCaloriesRemaining ||
+            totalCaloriesBurned ||
+            totalCaloriesConsumed ||
+            totalCaloriesGoals) && <Chart chartData={chartData} />}
+          <div className="flex flex-col gap-5">
+            <div className="w-full  text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
+              <h2 className="text-blue">Total Calories Burned</h2>
+              <p className="flex items-center flex-wrap gap-2 text-white text-xl my-4">
+                <FaFire className="fill-red" />
+                {totalCaloriesBurned}
+              </p>
+            </div>
+            <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
+              <h2 className="text-blue">Total Calories Consumed</h2>
+              <p className="flex items-center gap-2 text-white text-xl my-4">
+                <FaUtensils className="fill-orange" /> {totalCaloriesConsumed}
+              </p>
+            </div>
           </div>
-          <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-            <h2 className="text-blue">Total Calories Consumed</h2>
-            <p className="flex items-center gap-2 text-white text-xl my-4">
-              <FaUtensils className="fill-orange" />{" "}
-              {activity?.totalCaloriesConsumed}
-            </p>
-          </div>
-          <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-            <h2 className="text-blue">Total Calories Goal</h2>
-            <p className="flex items-center gap-2 text-white text-xl my-4">
-              <FaBullseye className="fill-green" />
-              {activity?.totalCaloriesGoals}
-            </p>
-          </div>
-          <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
-            <h2 className="text-blue">Remaining Calories to Goal</h2>
-            <p className="flex items-center gap-2 text-white text-xl my-4">
-              <FaHourglassHalf className="fill-red" />
-              {activity?.totalCaloriesRemaining}
-            </p>
+          <div className="flex flex-col gap-5">
+            <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
+              <h2 className="text-blue">Total Calories Goal</h2>
+              <p className="flex items-center gap-2 text-white text-xl my-4">
+                <FaBullseye className="fill-green" />
+                {totalCaloriesGoals}
+              </p>
+            </div>
+            <div className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg">
+              <h2 className="text-blue">Remaining Calories to Goal</h2>
+              <p className="flex items-center gap-2 text-white text-xl my-4">
+                <FaHourglassHalf className="fill-red" />
+                {totalCaloriesRemaining}
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ export default {
       md700: "700px",
       md: "768px",
       lg: "1024px",
+      lg1150: "1150px",
       xl: "1280px",
     },
     extend: {
@@ -28,7 +29,7 @@ export default {
         green: "#40CC7C",
         red: "#FF555D",
         blue: "#4180fc",
-        blueDark:"#296efa",
+        blueDark: "#296efa",
         black: "#151515",
         bgWhole: "#171430",
         bgBox: "#24204b",
@@ -41,7 +42,6 @@ export default {
         bgColorLoad: "#e2e2e2c4",
         bgModal: "#54545488",
         shadowDark: "#080707",
-       
       },
 
       spacing: {
