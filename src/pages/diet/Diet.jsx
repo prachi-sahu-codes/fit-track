@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../../layout/navBar/NavBar";
-import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import NavBar from "../../layout/navBar/NavBar";
+import { GiFruitBowl, GiOakLeaf, GiBowlOfRice } from "react-icons/gi";
+import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { MdOutlineEdit } from "react-icons/md";
+import { debounce } from "../../utils/utils";
+import { DietModal } from "../../components/modal/DietModal";
 import {
   getAllDiets,
   createDiet,
   updateDiet,
   deleteDiet,
 } from "../../store/activityStore/action";
-import { toast } from "react-toastify";
-import { DietModal } from "../../components/modal/DietModal";
-import { GiFruitBowl, GiOakLeaf, GiBowlOfRice } from "react-icons/gi";
-import { MdEdit } from "react-icons/md";
 
 const Diet = () => {
   const [data, setData] = useState({
@@ -27,9 +28,33 @@ const Diet = () => {
   const dispatch = useDispatch();
   const foodData = useSelector((state) => state.activity.diets);
   const user = useSelector((state) => state.auth.loggedUser);
+  const [searchData, setSearchData] = useState({
+    filteredArr: foodData,
+    searchTerm: "",
+  });
   useEffect(() => {
     dispatch(getAllDiets(user._id));
   }, []);
+
+  useEffect(() => {
+    setSearchData((prev) => ({ ...prev, filteredArr: foodData }));
+  }, [foodData]);
+
+  const debouncedFilter = debounce((term) => {
+    const filtered = foodData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(term.toLowerCase()) ||
+        item.category.toLowerCase().includes(term.toLowerCase())
+    );
+
+    setSearchData((prev) => ({ ...prev, filteredArr: filtered }));
+  }, 500);
+
+  const handleSearchChange = (event) => {
+    const newSearchTerm = event.target.value;
+    setSearchData((prev) => ({ ...prev, searchTerm: newSearchTerm }));
+    debouncedFilter(newSearchTerm);
+  };
 
   const submitHandler = () => {
     if (data.name && data.calories) {
@@ -50,10 +75,16 @@ const Diet = () => {
     <div className="w-calc-mainBody p-1">
       <NavBar title="Diets" />
       <div className="h-calc-mainbody overflow-y-scroll hide-scrollbar">
-        <div className="w-96 flex justify-between items-center m-auto mt-4">
-          <h1 className="text-white">Add Your Diet</h1>
-          <div
-            className="bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary"
+        <div className="flex justify-between items-center gap-4 m-2 mt-4">
+          <input
+            type="text"
+            placeholder="Search Diets"
+            value={searchData.searchTerm}
+            onChange={handleSearchChange}
+            className="w-full text-white p-2 px-4 border-2 border-iconPurple border-opacity-50 rounded-md bg-transparent outline-none focus:border-2 focus:border-primary"
+          />
+          <button
+            className="flex justify-center items-center gap-3 w-72 bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary text-white"
             onClick={() => {
               setData({
                 name: "",
@@ -67,62 +98,40 @@ const Diet = () => {
               setShowModal(true);
             }}
           >
-            {" "}
             <AiOutlinePlus className="text-xl fill-white" />
-          </div>
+            <span>Add New Diet</span>
+          </button>
         </div>
-        {foodData?.length > 0 ? (
+        {searchData.filteredArr?.length > 0 ? (
           <div>
             <h2 className="text-orange my-6 text-2xl">Your Diets</h2>
             <hr className="h-2px bg-primaryDark opacity-30" />
             <ul className="w-full gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-8 px-4 pr-7">
-              {foodData?.map((foodDiet) => (
+              {searchData.filteredArr?.map((foodDiet) => (
                 <li
                   key={foodDiet._id}
                   className="w-full flex flex-col justify-between text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
                   <div>
-                    <div className="flex justify-between items-center mb-4">
-                      <h2
-                        className={`flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 ${
-                          foodDiet.category === "Dish"
-                            ? "text-orange"
-                            : foodDiet.category === "Fruit"
-                            ? "text-yellow"
-                            : "text-green"
-                        }`}
-                      >
-                        {foodDiet.category === "Vegetable" ? (
-                          <GiOakLeaf className="shrink-0" />
-                        ) : foodDiet.category === "Fruit" ? (
-                          <GiFruitBowl className="shrink-0" />
-                        ) : (
-                          <GiBowlOfRice className="shrink-0" />
-                        )}
-                        {foodDiet.name}
-                      </h2>
-                      <button
-                        className=" text-blue text-lg"
-                        title="edit"
-                        onClick={() => {
-                          setData(() => ({
-                            name: foodDiet.name,
-                            calories: foodDiet.calories,
-                            protein: foodDiet.protein,
-                            carbohydrates: foodDiet.carbohydrates,
-                            fat: foodDiet.fat,
-                            category: foodDiet.category,
-                          }));
-                          setActionType(() => ({
-                            type: "update",
-                            id: foodDiet._id,
-                          }));
-                          setShowModal(true);
-                        }}
-                      >
-                        <MdEdit />
-                      </button>
-                    </div>
+                    <h2
+                      className={`flex items-center mb-4 gap-2 text-blue text-xl font-semibold underline underline-offset-2 ${
+                        foodDiet.category === "Dish"
+                          ? "text-orange"
+                          : foodDiet.category === "Fruit"
+                          ? "text-yellow"
+                          : "text-green"
+                      }`}
+                    >
+                      {foodDiet.category === "Vegetable" ? (
+                        <GiOakLeaf className="shrink-0" />
+                      ) : foodDiet.category === "Fruit" ? (
+                        <GiFruitBowl className="shrink-0" />
+                      ) : (
+                        <GiBowlOfRice className="shrink-0" />
+                      )}
+                      {foodDiet.name}
+                    </h2>
+
                     <p className="my-2 text-sm">
                       Calories:{" "}
                       <span className="text-white text-base pl-2">
@@ -154,12 +163,36 @@ const Diet = () => {
                       </span>
                     </p>
                   </div>
-                  <button
-                    onClick={() => dispatch(deleteDiet(foodDiet._id))}
-                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
-                  >
-                    Delete Diet
-                  </button>
+                  <div className="flex gap-4 mt-5">
+                    <button
+                      className="w-full flex items-center justify-center gap-2 p-1.5 rounded-lg hover:bg-blueDark active:bg-transparent bg-transparent border-2 border-blue hover:bg-opacity-25 text-blue"
+                      onClick={() => {
+                        setData(() => ({
+                          name: foodDiet.name,
+                          calories: foodDiet.calories,
+                          protein: foodDiet.protein,
+                          carbohydrates: foodDiet.carbohydrates,
+                          fat: foodDiet.fat,
+                          category: foodDiet.category,
+                        }));
+                        setActionType(() => ({
+                          type: "update",
+                          id: foodDiet._id,
+                        }));
+                        setShowModal(true);
+                      }}
+                    >
+                      <MdOutlineEdit />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => dispatch(deleteDiet(foodDiet._id))}
+                      className="w-full flex items-center justify-center gap-2 p-1.5 text-orange bg-transparent border-2 border-orange rounded-lg hover:bg-orange hover:bg-opacity-25 active:bg-transparent"
+                    >
+                      <AiOutlineDelete />
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

@@ -114,7 +114,7 @@ export const GoalModal = ({
                   setData((d) => ({ ...d, status: e.target.value }))
                 }
               >
-                <option disabled selected className="text-gray">
+                <option value="" disabled selected className="text-gray">
                   Choose Type:
                 </option>
                 {statusType.map((status) => (

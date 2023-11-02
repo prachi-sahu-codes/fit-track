@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../../layout/navBar/NavBar";
-import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import NavBar from "../../layout/navBar/NavBar";
+import { toast } from "react-toastify";
+import { BiRun } from "react-icons/bi";
+import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { MdOutlineEdit } from "react-icons/md";
+import { debounce } from "../../utils/utils";
+import { WorkoutModal } from "../../components/modal/WorkoutModal";
 import {
   getAllExercises,
   createExercises,
   updateExercise,
   deleteExercise,
 } from "../../store/activityStore/action";
-import { toast } from "react-toastify";
-import { WorkoutModal } from "../../components/modal/WorkoutModal";
-import { BiRun } from "react-icons/bi";
-import { MdEdit } from "react-icons/md";
-import { debounce } from "../../utils/utils";
 
 const Workout = () => {
   const [data, setData] = useState({ name: "", duration: 0, exerciseType: "" });
@@ -30,6 +30,10 @@ const Workout = () => {
   useEffect(() => {
     dispatch(getAllExercises(user._id));
   }, []);
+
+  useEffect(() => {
+    setSearchData((prev) => ({ ...prev, filteredArr: exerciseData }));
+  }, [exerciseData]);
 
   const debouncedFilter = debounce((term) => {
     const filtered = exerciseData.filter((item) =>
@@ -64,16 +68,16 @@ const Workout = () => {
     <div className="w-calc-mainBody p-1">
       <NavBar title="Workouts" />
       <div className="h-calc-mainbody overflow-y-scroll hide-scrollbar">
-        <div className="flex justify-between items-center gap-2 m-2 mt-4">
+        <div className="flex justify-between items-center gap-4 m-2 mt-4">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search Exercises"
             value={searchData.searchTerm}
             onChange={handleSearchChange}
-            className="w-full text-white p-1 px-4 border-2 border-iconPurple border-opacity-50 rounded-md bg-transparent"
+            className="w-full text-white p-2 px-4 border-2 border-iconPurple border-opacity-50 rounded-md bg-transparent outline-none focus:border-2 focus:border-primary"
           />
 
-          <div
+          <button
             className="flex justify-center items-center gap-3 w-72 bg-primary p-2 rounded-lg cursor-pointer hover:bg-primaryDark active:bg-primary text-white"
             onClick={() => {
               setData({
@@ -85,9 +89,9 @@ const Workout = () => {
               setShowModal(true);
             }}
           >
-            <span>Add New Exercise</span>
             <AiOutlinePlus className="text-xl fill-white" />
-          </div>
+            <span>Add New Exercise</span>
+          </button>
         </div>
         {searchData.filteredArr.length > 0 ? (
           <div>
@@ -99,27 +103,11 @@ const Workout = () => {
                   key={exe._id}
                   className="w-full text-mediumGray bg-bgBox border-2 border-iconPurple border-opacity-20 p-4 rounded-lg"
                 >
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2">
-                      <BiRun className="shrink-0" />
-                      {exe.name}
-                    </h2>
-                    <button
-                      className=" text-blue text-lg"
-                      title="edit"
-                      onClick={() => {
-                        setData(() => ({
-                          name: exe.name,
-                          duration: exe.duration,
-                          exerciseType: exe.exerciseType,
-                        }));
-                        setActionType(() => ({ type: "update", id: exe._id }));
-                        setShowModal(true);
-                      }}
-                    >
-                      <MdEdit />
-                    </button>
-                  </div>
+                  <h2 className="flex items-center gap-2 text-blue text-xl font-semibold underline underline-offset-2 mb-4">
+                    <BiRun className="shrink-0" />
+                    {exe.name}
+                  </h2>
+
                   <p className="my-2 text-sm">
                     Duration:{" "}
                     <span className="text-white text-base pl-2">
@@ -132,12 +120,29 @@ const Workout = () => {
                       {exe.caloriesBurned} cals
                     </span>
                   </p>
-                  <button
-                    onClick={() => dispatch(deleteExercise(exe._id))}
-                    className="w-full inline-block p-1.5 mt-5 text-white bg-blue rounded-lg hover:bg-blueDark active:bg-blue"
-                  >
-                    Delete Exercise
-                  </button>
+                  <div className="flex gap-4 mt-5">
+                    <button
+                      onClick={() => {
+                        setData(() => ({
+                          name: exe.name,
+                          duration: exe.duration,
+                          exerciseType: exe.exerciseType,
+                        }));
+                        setActionType(() => ({ type: "update", id: exe._id }));
+                        setShowModal(true);
+                      }}
+                      className="w-full flex items-center justify-center gap-2 p-1.5 rounded-lg hover:bg-blueDark active:bg-transparent bg-transparent border-2 border-blue hover:bg-opacity-25 text-blue"
+                    >
+                      <MdOutlineEdit />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => dispatch(deleteExercise(exe._id))}
+                      className="w-full flex items-center justify-center gap-2 p-1.5 text-orange bg-transparent border-2 border-orange rounded-lg hover:bg-orange hover:bg-opacity-25 active:bg-transparent"
+                    >
+                      <AiOutlineDelete /> Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

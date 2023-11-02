@@ -30,15 +30,6 @@ const NavBar = ({ title }) => {
         >
           <FiGithub className="w-6 h-6 stroke-iconPurple" title="Github" />
         </Link>
-
-        <img
-          src={
-            user?.profilePicture
-              ? user?.profilePicture
-              : "https://i.imgur.com/xzhwRaY.png"
-          }
-          className="w-9 h-9 rounded-full border-2 border-primary cursor-pointer"
-        />
       </div>
     </div>
   );

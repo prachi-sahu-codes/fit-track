@@ -129,7 +129,7 @@ export const DietModal = ({
                   setData((d) => ({ ...d, category: e.target.value }))
                 }
               >
-                <option disabled selected className="text-gray">
+                <option value="" disabled selected className="text-gray">
                   Choose Type:
                 </option>
                 {category.map((catg) => (

@@ -73,7 +73,7 @@ export const WorkoutModal = ({
                   setData((d) => ({ ...d, exerciseType: e.target.value }))
                 }
               >
-                <option disabled selected>
+                <option value="" selected disabled>
                   Choose Type:
                 </option>
                 {exeType.map((exe) => (
