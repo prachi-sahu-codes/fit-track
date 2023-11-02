@@ -5,6 +5,7 @@ import NavBar from "../../layout/navBar/NavBar";
 import { GiFruitBowl, GiOakLeaf, GiBowlOfRice } from "react-icons/gi";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineEdit } from "react-icons/md";
+import noData from "../../assets/noData.svg";
 import { debounce } from "../../utils/utils";
 import { DietModal } from "../../components/modal/DietModal";
 import {
@@ -198,9 +199,12 @@ const Diet = () => {
             </ul>
           </div>
         ) : (
-          <p className="text-xl text-lightGray text-center m-8">
-            No Diets added yet!!
-          </p>
+          <div>
+            <img src={noData} className="w-1/5 m-auto mt-20" />
+            <p className="text-xl text-lightGray text-center m-8">
+              No Diets added yet!!
+            </p>
+          </div>
         )}
 
         {showModal && (

@@ -113,7 +113,7 @@ export const activityReducer = (state = InitialState, action) => {
         state.totalCaloriesGoals -
         state.totalCaloriesBurned +
         state.totalCaloriesConsumed;
-      if (caloriesremaining > 0) {
+      if (state.totalCaloriesGoals && caloriesremaining > 0) {
         return { ...state, totalCaloriesRemaining: caloriesremaining };
       } else {
         return { ...state, totalCaloriesRemaining: 0 };

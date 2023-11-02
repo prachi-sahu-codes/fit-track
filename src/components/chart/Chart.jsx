@@ -21,7 +21,7 @@ const Chart = ({ chartData }) => {
     ],
     datasets: [
       {
-        label: "# of Votes",
+        label: "Calories",
         data: dataValue,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",

@@ -37,9 +37,9 @@ const SignUp = () => {
       userInfo.phoneNumber &&
       userInfo.password.length <= 5
     ) {
-      toast.error("Password length should be greater than 5.!");
+      toast.error("Password length should be greater than 5!");
     } else {
-      toast.error("Please fill in all fields with valid details.!");
+      toast.error("Please fill in all fields with valid details!");
     }
   };
   return (

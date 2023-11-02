@@ -6,6 +6,7 @@ import { ImStopwatch } from "react-icons/im";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineEdit } from "react-icons/md";
 import NavBar from "../../layout/navBar/NavBar";
+import noData from "../../assets/noData.svg";
 import { debounce } from "../../utils/utils";
 import { GoalModal } from "../../components/modal/GoalModal";
 import {
@@ -194,9 +195,12 @@ const Goal = () => {
             </ul>
           </div>
         ) : (
+          <div>
+            <img src={noData} className="w-1/5 m-auto mt-20" />
           <p className="text-xl text-lightGray text-center m-8">
             No Goals added yet!!
           </p>
+          </div>
         )}
 
         {showModal && (

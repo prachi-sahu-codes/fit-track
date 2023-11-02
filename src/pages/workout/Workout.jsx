@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { BiRun } from "react-icons/bi";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineEdit } from "react-icons/md";
+import noData from "../../assets/noData.svg";
 import { debounce } from "../../utils/utils";
 import { WorkoutModal } from "../../components/modal/WorkoutModal";
 import {
@@ -148,9 +149,12 @@ const Workout = () => {
             </ul>
           </div>
         ) : (
+          <div>
+            <img src={noData} className="w-1/5 m-auto mt-20" />
           <p className="text-xl text-lightGray text-center m-8">
             No Exercises added yet!!
           </p>
+          </div>
         )}
 
         {showModal && (
